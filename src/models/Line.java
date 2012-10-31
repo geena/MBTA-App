@@ -1,7 +1,7 @@
 package models;
 
 public enum Line
-{
+{  
 	RED("Red"),
 	ORANGE("Orange"),
 	BLUE("Blue");
