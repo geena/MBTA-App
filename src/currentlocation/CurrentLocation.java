@@ -1,11 +1,8 @@
 package currentlocation;
-import java.util.ArrayList;
 import java.util.List;
 
 import models.MBTAResponse;
-import models.Predictions;
 import models.TripList;
-import models.Trips;
 import requests.AbstractMBTARequest;
 import requests.Closure;
 import services.MBTAService;
@@ -23,8 +20,6 @@ public class CurrentLocation
 	private void getLocation()
 	{
 		getRedLineTrains();
-		getBlueLineTrains();
-		getOrangeLineTrains();
 	}
 	
 	private void getOrangeLineTrains()
@@ -100,6 +95,7 @@ public class CurrentLocation
 		{
 			TripList tripList = data.getTripList();
 			_allTrainsList.add(tripList);
+			getBlueLineTrains();
 			return null;
 		}
 	}
@@ -150,6 +146,7 @@ public class CurrentLocation
 		{
 			TripList tripList = data.getTripList();
 			_allTrainsList.add(tripList);
+			getOrangeLineTrains();
 			return null;
 		}
 	}
