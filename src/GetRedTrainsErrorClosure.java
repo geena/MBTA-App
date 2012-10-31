@@ -13,6 +13,9 @@ public class GetRedTrainsErrorClosure implements Closure<Void, AbstractMBTAReque
 	@Override
 	public Void invoke(AbstractMBTARequest caller, MBTAResponse data)
 	{
+		Exception exception = data.getException();
+		System.out.println("ERROR: " + exception.getMessage());
+		
 		return null;
 	}
 }

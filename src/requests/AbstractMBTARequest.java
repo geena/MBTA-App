@@ -103,16 +103,24 @@ public abstract class AbstractMBTARequest
 			parse(resultStr.toString());
 		} catch (SocketTimeoutException e)
 		{
-			//TODO: Handle Timeouts
+			_mbtaResponse = new MBTAResponse();
+			_mbtaResponse.setException(new Exception("Connection Timed Out"));
+			_errorClosure.invoke(this, _mbtaResponse);
 		} catch (MalformedURLException e) 
 		{
-			e.printStackTrace();
+			_mbtaResponse = new MBTAResponse();
+			_mbtaResponse.setException(e);
+			_errorClosure.invoke(this, _mbtaResponse);
 		} catch (ProtocolException e) 
 		{
-			e.printStackTrace();
+			_mbtaResponse = new MBTAResponse();
+			_mbtaResponse.setException(e);
+			_errorClosure.invoke(this, _mbtaResponse);
 		} catch (IOException e) 
 		{
-			e.printStackTrace();
+			_mbtaResponse = new MBTAResponse();
+			_mbtaResponse.setException(new Exception("No Connection"));
+			_errorClosure.invoke(this, _mbtaResponse);
 		}
 		finally
 		{
