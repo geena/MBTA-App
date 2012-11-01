@@ -1,6 +1,7 @@
+package UI;
+
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 
 
@@ -14,6 +15,7 @@ public class Main extends JFrame{
         setSize(800, 800);
         setResizable(false);
         setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public static void main(String[] args){

@@ -1,5 +1,6 @@
+package UI;
+
 import javax.swing.JButton;
-import java.awt.Graphics;
 
 
 public class StopButton extends JButton{
