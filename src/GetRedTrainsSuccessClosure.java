@@ -7,7 +7,7 @@ import models.Trips;
 import requests.AbstractMBTARequest;
 import requests.Closure;
 
-public class GetRedTrainsSuccessClosure implements Closure<Void, AbstractMBTARequest, MBTAResponse>
+class GetRedTrainsSuccessClosure implements Closure<Void, AbstractMBTARequest, MBTAResponse>
 {
 	@Override
 	public Class<MBTAResponse> getResponseType()

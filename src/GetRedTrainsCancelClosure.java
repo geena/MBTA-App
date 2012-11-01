@@ -2,7 +2,7 @@ import models.MBTAResponse;
 import requests.AbstractMBTARequest;
 import requests.Closure;
 
-public class GetRedTrainsCancelClosure implements Closure<Void, AbstractMBTARequest, MBTAResponse>
+class GetRedTrainsCancelClosure implements Closure<Void, AbstractMBTARequest, MBTAResponse>
 {
 	@Override
 	public Class<MBTAResponse> getResponseType()

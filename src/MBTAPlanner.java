@@ -14,6 +14,8 @@ public class MBTAPlanner
 		final GetRedTrainsCancelClosure cancelClosure = new GetRedTrainsCancelClosure();
 
 		_mbtaService.getRedLineTrains(successClosure, errorClosure, cancelClosure);
+		_mbtaService.getBlueLineTrains(successClosure, errorClosure, cancelClosure);
+		_mbtaService.getOrangeLineTrains(successClosure, errorClosure, cancelClosure);
 	}
 
 }
