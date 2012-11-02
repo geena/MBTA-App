@@ -21,10 +21,10 @@ import services.MBTAService;
 
 
 public class MapWindow extends JPanel implements ActionListener{
-	private String MAPFILE= "src/UI/map.jpg"; //the file name of the map background
-	private String ICONFILE= "src/UI/icon.png"; //file name of the train icon
-	private String UPSIDEDOWICONFILE= "src/UI/iconReverse.png"; //file name of the upside down train icon
-	private String UPHILLICONFILE= "src/UI/iconUphill.png"; //file name of the train icon
+	private String MAPFILE= "assets/Map.jpg"; //the file name of the map background
+	private String ICONFILE= "assets/icon.png"; //file name of the train icon
+	private String UPSIDEDOWICONFILE= "assets/iconReverse.png"; //file name of the upside down train icon
+	private String UPHILLICONFILE= "assets/iconUphill.png"; //file name of the train icon
 	private BufferedImage background; // the Buffered image to hold map image information
 	private BufferedImage trainIcon; // the Buffered image to hold map image information
 	private BufferedImage upsidedown;
