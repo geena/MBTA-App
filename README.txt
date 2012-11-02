@@ -13,6 +13,11 @@ To Compile (Not Necessary):
 Go into root directory and use 'ant' command.
 
 To Run:
+
+Option 1:
+Go into root directory and use 'java -classpath build:libs/json-simple-1.1.1.jar:libs/jackson-core-asl-1.9.2.jar:libs/jackson-mapper-asl-1.9.2.jar MBTAPlanner'
+
+Option 2:
 Go into root directory and use './runMBTAPlanner' command.
 
 To see all current location of trains:
