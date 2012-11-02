@@ -32,7 +32,7 @@
   	<jar destfile="MBTA_DAVINCI.jar" basedir="build">
 <zipgroupfileset dir="libs" includes="*.jar"/>
 	    <manifest>
-	        <attribute name="Main-Class" value="MBTAPlanner"/>
+	        <attribute name="Main-Class" value="UI/Main"/>
 	    </manifest>
   	</jar>
   	
