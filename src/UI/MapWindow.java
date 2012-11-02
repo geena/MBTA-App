@@ -32,6 +32,7 @@ public class MapWindow extends JPanel implements ActionListener{
 	//private Train.TripList;
 	private final MBTAService _mbtaService;
 	private List<TripList> _allTrainsList;
+	private Graphics _graphic;
 	
 	public MapWindow(){
 		_mbtaService = new MBTAService();
@@ -53,9 +54,6 @@ public class MapWindow extends JPanel implements ActionListener{
 	private void paintTrains(Graphics g){
 		
 		this.getTrainLocations();
-		paintRedTrains(g);
-		paintOrangeTrains(g);
-		paintBlueTrains(g);
 	}
 	
 	//places the train icons on the orange line
@@ -1167,7 +1165,8 @@ public class MapWindow extends JPanel implements ActionListener{
 	
 	public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.drawImage(background, 0, 0, null); 
+        g.drawImage(background, 0, 0, null);
+        _graphic = g;
         this.paintTrains(g);
     }
 	@Override
@@ -1357,11 +1356,9 @@ public class MapWindow extends JPanel implements ActionListener{
 			TripList tripList = data.getTripList();
 			_allTrainsList.add(tripList);
 			
-			//Here is where you want to do some stuff with the _allTrainsList
-			//System.out.println(_allTrainsList.get(0).getTrips().get(0).getDestination());
-
-			//System.out.println(_allTrainsList.get(0).getTrips().get(0).getPredictions().get(0).getStopName());
-			//System.out.println(_allTrainsList.get(0).getTrips().get(0).getPredictions().get(0).getSeconds());
+			paintRedTrains(_graphic);
+			paintOrangeTrains(_graphic);
+			paintBlueTrains(_graphic);
 			return null;
 		}
 	}
