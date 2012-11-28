@@ -4,14 +4,19 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import models.MBTAResponse;
 import models.TripList;
 import requests.AbstractMBTARequest;
@@ -20,11 +25,12 @@ import services.MBTAService;
 
 
 
-public class MapWindow extends JPanel implements ActionListener{
+public class MapWindow extends JPanel{
 	private String MAPFILE= "src/UI/map.jpg"; //the file name of the map background
-	private String ICONFILE= "src/UI/icon.png"; //file name of the train icon
-	private String UPSIDEDOWICONFILE= "src/UI/iconReverse.png"; //file name of the upside down train icon
-	private String UPHILLICONFILE= "src/UI/iconUphill.png"; //file name of the train icon
+	private String ICONFILE= "src/UI/icon2.png"; //file name of the train icon
+	private String UPSIDEDOWICONFILE= "src/UI/iconReverse2.png"; //file name of the upside down train icon
+	private String UPHILLICONFILE= "src/UI/iconUphill2.png"; //file name of the train icon
+	
 	private BufferedImage background; // the Buffered image to hold map image information
 	private BufferedImage trainIcon; // the Buffered image to hold map image information
 	private BufferedImage upsidedown;
@@ -32,8 +38,10 @@ public class MapWindow extends JPanel implements ActionListener{
 	//private Train.TripList;
 	private final MBTAService _mbtaService;
 	private List<TripList> _allTrainsList;
+	ActionListener listener;
 	
 	public MapWindow(){
+		setLayout(null);
 		_mbtaService = new MBTAService();
 		_allTrainsList = new ArrayList<TripList>();
 		try {
@@ -43,11 +51,14 @@ public class MapWindow extends JPanel implements ActionListener{
 			uphill = ImageIO.read(new File(UPHILLICONFILE));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block//
-			e.printStackTrace();
-			
+			e.printStackTrace();	
 		}
 		
+		
 	}
+	
+	
+	
 	
 	//updates Trip List and then paints trains
 	private void paintTrains(Graphics g){
@@ -56,6 +67,7 @@ public class MapWindow extends JPanel implements ActionListener{
 		paintRedTrains(g);
 		paintOrangeTrains(g);
 		paintBlueTrains(g);
+		
 	}
 	
 	//places the train icons on the orange line
@@ -78,7 +90,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Malden Center")==0){
-					System.out.println("Malden");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(670, point.y);
 					}else{
@@ -87,7 +98,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Wellington")==0){
-					System.out.println("Wellington");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(630, point.y);
 					}else{
@@ -96,7 +106,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Sullivan")==0){
-					System.out.println("Sullivan Square");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(592, point.y);
 					}else{
@@ -105,7 +114,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Community College")==0){
-					System.out.println("Community College");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(553, point.y);
 					}else{
@@ -114,7 +122,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("North Station")==0){
-					System.out.println("North Station");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(513, point.y);
 					}else{
@@ -123,7 +130,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Haymarket")==0){
-					System.out.println("Haymarket");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(473, point.y);
 					}else{
@@ -132,7 +138,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("State Street")==0){
-					System.out.println("State");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(433, point.y);
 					}else{
@@ -141,7 +146,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Downtown Crossing")==0){
-					System.out.println("Downtown Crossing");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(393, point.y);
 					}else{
@@ -150,7 +154,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Chinatown")==0){
-					System.out.println("Chinatown");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(353, point.y);
 					}else{
@@ -159,7 +162,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Tufts Medical")==0){
-					System.out.println("Tufts Medical Center");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(313, point.y);
 					}else{
@@ -168,7 +170,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Back Bay")==0){
-					System.out.println("Back Bay");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(273, point.y);
 					}else{
@@ -177,7 +178,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Mass Ave")==0){
-					System.out.println("Mass Ave");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(235, point.y);
 					}else{
@@ -186,7 +186,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Ruggles")==0){
-					System.out.println("Ruggles");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(195, point.y);
 					}else{
@@ -195,7 +194,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Roxbury Crossing")==0){
-					System.out.println("Roxbury Crossing");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(160, point.y);
 					}else{
@@ -204,7 +202,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Jackson Square")==0){
-					System.out.println("Jackson Square");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(123, point.y);
 					}else{
@@ -213,7 +210,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Stony Brook")==0){
-					System.out.println("Stony Brook");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(88, point.y);
 					}else{
@@ -222,7 +218,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Green Street")==0){
-					System.out.println("Green Street");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(55, point.y);
 					}else{
@@ -231,7 +226,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Forest Hills")==0){
-					System.out.println("Forest Hills");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(23, point.y);
 						g.drawImage(trainIcon, point.x, point.y, 100, 100, null);
@@ -254,7 +248,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Malden Center")==0){
-					System.out.println("Malden");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(667, point.y);
 					}else{
@@ -263,7 +256,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Wellington")==0){
-					System.out.println("Wellington");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(623, point.y);
 					}else{
@@ -272,7 +264,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Sullivan")==0){
-					System.out.println("Sullivan Square");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(584, point.y);
 					}else{
@@ -281,7 +272,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Community College")==0){
-					System.out.println("Community College");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(546, point.y);
 					}else{
@@ -290,7 +280,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("North Station")==0){
-					System.out.println("North Station");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(505, point.y);
 					}else{
@@ -299,7 +288,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Haymarket")==0){
-					System.out.println("Haymarket");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(465, point.y);
 					}else{
@@ -308,7 +296,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("State Street")==0){
-					System.out.println("State");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(427, point.y);
 					}else{
@@ -317,7 +304,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Downtown Crossing")==0){
-					System.out.println("Downtown Crossing");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(387, point.y);
 					}else{
@@ -326,7 +312,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Chinatown")==0){
-					System.out.println("Chinatown");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(347, point.y);
 					}else{
@@ -335,7 +320,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Tufts Medical")==0){
-					System.out.println("Tufts Medical Center");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(307, point.y);
 					}else{
@@ -344,7 +328,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Back Bay")==0){
-					System.out.println("Back Bay");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(267, point.y);
 					}else{
@@ -353,7 +336,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Mass Ave")==0){
-					System.out.println("Mass Ave");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(225, point.y);
 					}else{
@@ -362,7 +344,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Ruggles")==0){
-					System.out.println("Ruggles");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(192, point.y);
 					}else{
@@ -371,7 +352,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Roxbury Crossing")==0){
-					System.out.println("Roxbury Crossing");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(152, point.y);
 					}else{
@@ -380,7 +360,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Jackson Square")==0){
-					System.out.println("Jackson Square");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(115, point.y);
 					}else{
@@ -389,7 +368,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Stony Brook")==0){
-					System.out.println("Stony Brook");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(81, point.y);
 					}else{
@@ -398,7 +376,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Green Street")==0){
-					System.out.println("Green Street");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(47, point.y);
 					}else{
@@ -407,7 +384,6 @@ public class MapWindow extends JPanel implements ActionListener{
 					g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
 				}
 				else if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getStopName().compareTo("Forest Hills")==0){
-					System.out.println("Forest Hills");
 					if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(0).getSeconds() < 20){
 						point.setLocation(16, point.y);
 						g.drawImage(upsidedown, point.x, point.y, 100, 100, null);
@@ -1170,11 +1146,7 @@ public class MapWindow extends JPanel implements ActionListener{
         g.drawImage(background, 0, 0, null); 
         this.paintTrains(g);
     }
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+
 	
 	private void getTrainLocations()
 	{
@@ -1357,14 +1329,29 @@ public class MapWindow extends JPanel implements ActionListener{
 			TripList tripList = data.getTripList();
 			_allTrainsList.add(tripList);
 			
-			//Here is where you want to do some stuff with the _allTrainsList
-			//System.out.println(_allTrainsList.get(0).getTrips().get(0).getDestination());
-
-			//System.out.println(_allTrainsList.get(0).getTrips().get(0).getPredictions().get(0).getStopName());
-			//System.out.println(_allTrainsList.get(0).getTrips().get(0).getPredictions().get(0).getSeconds());
 			return null;
 		}
 	}
+	
+	private void clearAllButtons(){
+		for(int i = 0; i<this.getComponents().length; i++){
+			System.out.println(this.getComponents()[i]);
+		}
+	}
+
+	
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println(e.getSource());
+		
+		if(e.getSource() instanceof MapWindow == false)
+		clearAllButtons();
+		repaint();
+	}
+
+
+
+	
 	
 	
 	
