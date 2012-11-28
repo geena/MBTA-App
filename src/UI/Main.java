@@ -88,7 +88,6 @@ public class Main extends JFrame implements MouseListener{
 		//StopButton2 button2 = new StopButton2();
 	public Main(){
 		MapWindow window = new MapWindow();
-		lastClickTime = 0L;
 		//orange line mouse listeners
 		oforesthills.addMouseListener(this);
 		ogreenst.addMouseListener(this);
@@ -244,14 +243,10 @@ public class Main extends JFrame implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		StopButton button = (StopButton)e.getSource();
-		if(lastClickTime == 0){	
-			lastClickTime = System.currentTimeMillis();
-		}else if(System.currentTimeMillis() - lastClickTime < 200){
-			System.out.println("double");
-			lastClickTime = 0L;
+		if(e.getClickCount() == 2){
+			System.out.println("double click");
 		}else{
-			System.out.println("single");
-			lastClickTime = 0L;
+			System.out.println("single click");
 			button.singleClicked();
 		}
 		
@@ -281,4 +276,6 @@ public class Main extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 }
