@@ -26,7 +26,7 @@ import services.MBTAService;
 
 
 public class MapWindow extends JPanel{
-	private String MAPFILE= "src/UI/map.jpg"; //the file name of the map background
+	private String MAPFILE= "src/UI/Map.jpg"; //the file name of the map background
 	private String ICONFILE= "src/UI/icon2.png"; //file name of the train icon
 	private String UPSIDEDOWICONFILE= "src/UI/iconReverse2.png"; //file name of the upside down train icon
 	private String UPHILLICONFILE= "src/UI/iconUphill2.png"; //file name of the train icon
