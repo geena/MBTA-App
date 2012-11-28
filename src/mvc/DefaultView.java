@@ -3,9 +3,10 @@ package mvc;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class DefaultView implements ModelEventListener
+import javax.swing.JPanel;
+
+public abstract class DefaultView extends JPanel implements ModelEventListener
 {
-	private DefaultModel _model;
 	private final List<ViewEventListener> _listeners = new ArrayList<ViewEventListener>();
 	
 	protected void addViewEventListener(ViewEventListener listener)
@@ -26,5 +27,5 @@ public abstract class DefaultView implements ModelEventListener
 		}
 	}
 	
-	public abstract void modelChanged(String event);
+	public abstract void modelChanged(String property);
 }

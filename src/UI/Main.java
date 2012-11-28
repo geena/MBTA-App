@@ -3,13 +3,16 @@ package UI;
 
 import javax.swing.JFrame;
 
+import UI.map.MapController;
+
 
 
 
 public class Main extends JFrame{
 	
 	public Main(){
-		add(new MapWindow());
+		MapController mapController = new MapController();
+		add(mapController.getView());
 		setLocationRelativeTo(null);
         setTitle("MBTA");
         setSize(800, 800);
