@@ -16,8 +16,7 @@ import javax.swing.Timer;
 
 
 public class Main extends JFrame implements MouseListener{
-	private long lastClickTime;  // Set this to zero at construction time
-	//orange line button placement
+		//orange line button placement
 	StopButton oforesthills = new StopButton(53, 119, "7001", "7001", Color.orange, true);
 	StopButton ogreenst = new StopButton(85, 121, "7001", "7001", Color.orange, false);
 	StopButton ostonybrook = new StopButton(118, 121, "7001", "7001", Color.orange, false);
