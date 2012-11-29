@@ -244,6 +244,11 @@ public class Main extends JFrame implements MouseListener{
 		StopButton button = (StopButton)e.getSource();
 		if(e.getClickCount() == 2){
 			System.out.println("double click");
+			JFrame frame = new JFrame();
+			OrangeStopWindow stop = new OrangeStopWindow();
+			frame.setSize(800,600);
+			frame.add(stop);
+			frame.setVisible(true);
 		}else{
 			System.out.println("single click");
 			button.singleClicked();
