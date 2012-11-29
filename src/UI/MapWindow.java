@@ -40,6 +40,7 @@ public class MapWindow extends JPanel{
 	private List<TripList> _allTrainsList;
 	ActionListener listener;
 	
+	
 	public MapWindow(){
 		setLayout(null);
 		_mbtaService = new MBTAService();
