@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 
 
 public abstract class StopWindow extends JPanel{
-	
-	public StopWindow(){
-		
+	String stopName;
+	public StopWindow(String name){
+		stopName = name;
 	}
 }

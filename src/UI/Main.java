@@ -2,89 +2,105 @@ package UI;
 
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 
 
 
 public class Main extends JFrame implements MouseListener{
+	
+	JDialog redSplit;
+	final JButton ashmont = new JButton("Ashmont");
+	final JButton braintree = new JButton("Braintree");
+	
 	//orange line button placement
-	StopButton oforesthills = new StopButton(53, 119, "7001", "7001", Color.orange, true);
-	StopButton ogreenst = new StopButton(85, 121, "7003", "7002", Color.orange, false);
-	StopButton ostonybrook = new StopButton(118, 121, "7005", "7004", Color.orange, false);
-	StopButton ojacksonsquare = new StopButton(153, 121, "7007", "7006", Color.orange, false);
-	StopButton oroxburycrossing = new StopButton(190, 121, "7009", "7008", Color.orange, false);
-	StopButton oruggles = new StopButton(228, 121, "7011", "7010", Color.orange, false);
-	StopButton omassave = new StopButton(265, 121, "7013", "7012", Color.orange, false);
-	StopButton obackbay = new StopButton(305, 121, "7015", "7014", Color.orange, false);
-	StopButton otuftsmedical = new StopButton(345, 121, "7017", "7016", Color.orange, false);
-	StopButton ochinatown = new StopButton(385, 121, "7019", "7018", Color.orange, false);
-	StopButton odowntowncrossing = new StopButton(425, 121, "7021", "7020", Color.orange, false);
-	StopButton ostate = new StopButton(464, 121, "7023", "7022", Color.orange, false);
-	StopButton ohaymarket = new StopButton(504, 121, "7025", "7024", Color.orange, false);
-	StopButton onorthstation = new StopButton(543, 121, "7027", "7026", Color.orange, false);
-	StopButton ocommunitycollege = new StopButton(583, 121, "7029", "7028", Color.orange, false);
-	StopButton osullivansquare = new StopButton(622, 121, "7031", "7030", Color.orange, false);
-	StopButton owellington = new StopButton(661, 121, "7033", "7032", Color.orange, false);
-	StopButton omalden = new StopButton(701, 121, "7035", "7034", Color.orange, false);
-	StopButton ooakgrove = new StopButton(733, 120, "7036", "7036", Color.orange, true);	
+	StopButton oforesthills = new StopButton("Forest Hills", 53, 119, "7001", "7001", Color.orange, true);
+	StopButton ogreenst = new StopButton("Green Street",85, 121, "7003", "7002", Color.orange, false);
+	StopButton ostonybrook = new StopButton("Stony Brook", 118, 121, "7005", "7004", Color.orange, false);
+	StopButton ojacksonsquare = new StopButton("Jackson Square", 153, 121, "7007", "7006", Color.orange, false);
+	StopButton oroxburycrossing = new StopButton("Roxbury Crossing", 190, 121, "7009", "7008", Color.orange, false);
+	StopButton oruggles = new StopButton("Ruggles", 228, 121, "7011", "7010", Color.orange, false);
+	StopButton omassave = new StopButton("Mass Ave", 265, 121, "7013", "7012", Color.orange, false);
+	StopButton obackbay = new StopButton("Back Bay", 305, 121, "7015", "7014", Color.orange, false);
+	StopButton otuftsmedical = new StopButton("Tufts Medical", 345, 121, "7017", "7016", Color.orange, false);
+	StopButton ochinatown = new StopButton("Chinatown", 385, 121, "7019", "7018", Color.orange, false);
+	StopButton odowntowncrossing = new StopButton("Downtown Crossing", 425, 121, "7021", "7020", Color.orange, false);
+	StopButton ostate = new StopButton("State Street", 464, 121, "7023", "7022", Color.orange, false);
+	StopButton ohaymarket = new StopButton("Haymarket", 504, 121, "7025", "7024", Color.orange, false);
+	StopButton onorthstation = new StopButton("North Station", 543, 121, "7027", "7026", Color.orange, false);
+	StopButton ocommunitycollege = new StopButton("Community College", 583, 121, "7029", "7028", Color.orange, false);
+	StopButton osullivansquare = new StopButton("Sullivan", 622, 121, "7031", "7030", Color.orange, false);
+	StopButton owellington = new StopButton("Wellington", 661, 121, "7033", "7032", Color.orange, false);
+	StopButton omalden = new StopButton("Malden Center", 701, 121, "7035", "7034", Color.orange, false);
+	StopButton ooakgrove = new StopButton("Oak Grove", 733, 120, "7036", "7036", Color.orange, true);	
 	
 	//red line button placement
-	StopButton ralewife = new StopButton(49, 311, "7061", "7061", Color.red, true);
-	StopButton rdavis = new StopButton(76, 312, "7063", "7064", Color.red, false);
-	StopButton rporter = new StopButton(103, 312, "7065", "7066", Color.red, false);
-	StopButton rharvard = new StopButton(131, 312, "7067", "7068", Color.red, false);
-	StopButton rcentral = new StopButton(159, 312, "7069", "7070", Color.red, false);
-	StopButton rkendall = new StopButton(185, 312, "7071", "7072", Color.red, false);
-	StopButton rcharles = new StopButton(214, 312, "7073", "7074", Color.red, false);
-	StopButton rparkst = new StopButton(241, 312, "7075", "7076", Color.red, false);
-	StopButton rdowntown = new StopButton(271, 312, "7077", "7078", Color.red, false);
-	StopButton rsouthstation = new StopButton(301, 312, "7079", "7080", Color.red, false);
-	StopButton rbroadway = new StopButton(333, 312, "7081", "7082", Color.red, false);
-	StopButton randrew = new StopButton(366, 312, "7083", "7084", Color.red, false);
-	StopButton rjfkAshmont = new StopButton(398, 312, "7085", "7086", Color.red, false);
-	StopButton rsavinhill = new StopButton(431, 312, "7087", "7088", Color.red, false);
-	StopButton rfieldscorner = new StopButton(451, 290, "7089", "7090", Color.red, false);
-	StopButton rshawmut = new StopButton(470, 268, "7091", "7092", Color.red, false);
-	StopButton rashmont = new StopButton(491, 244, "7093", "7094", Color.red, false);
-	StopButton rjfkBraintree = new StopButton(398, 312, "7095", "7096", Color.red, false);
-	StopButton rnorthquincy = new StopButton(578, 312, "7097", "7098", Color.red, false);
-	StopButton rwollaston = new StopButton(614, 312, "7099", "70100", Color.red, false);
-	StopButton rquincycenter = new StopButton(654, 312, "70101", "70102", Color.red, false);
-	StopButton rquincyadams = new StopButton(692, 312, "70103", "70104", Color.red, false);
-	StopButton rbraintree = new StopButton(730, 311, "70103", "70104", Color.red, true);
-	StopButton rcedargrove = new StopButton(518, 244, "70105", "70106", Color.red, false);
-	StopButton rbutler = new StopButton(547, 244, "7097", "7098", Color.red, false);
-	StopButton rmilton = new StopButton(578, 244, "7099", "70100", Color.red, false);
-	StopButton rcentralave = new StopButton(608, 244, "70101", "70102", Color.red, false);
-	StopButton rvalleyrd = new StopButton(641, 244, "70103", "70104", Color.red, false);
-	StopButton rcapenst = new StopButton(671, 244, "70105", "70106", Color.red, false);
-	StopButton rmattapan = new StopButton(699, 243, "70107", "70108", Color.red, true);
+	StopButton ralewife = new StopButton("Alewife", 49, 311, "7061", "7061", Color.red, true);
+	StopButton rdavis = new StopButton("Davis", 76, 312, "7063", "7064", Color.red, false);
+	StopButton rporter = new StopButton("Porter Square", 103, 312, "7065", "7066", Color.red, false);
+	StopButton rharvard = new StopButton("Harvard Square", 131, 312, "7067", "7068", Color.red, false);
+	StopButton rcentral = new StopButton("Central Square", 159, 312, "7069", "7070", Color.red, false);
+	StopButton rkendall = new StopButton("Kendall/MIT", 185, 312, "7071", "7072", Color.red, false);
+	StopButton rcharles = new StopButton("Charles/MGH",214, 312, "7073", "7074", Color.red, false);
+	StopButton rparkst = new StopButton("Park Street", 241, 312, "7075", "7076", Color.red, false);
+	StopButton rdowntown = new StopButton("Downtown Crossing", 271, 312, "7077", "7078", Color.red, false);
+	StopButton rsouthstation = new StopButton("South Station", 301, 312, "7079", "7080", Color.red, false);
+	StopButton rbroadway = new StopButton("Broadway", 333, 312, "7081", "7082", Color.red, false);
+	StopButton randrew = new StopButton("Andrew", 366, 312, "7083", "7084", Color.red, false);
+	StopButton rjfkAshmont = new StopButton("JFK/UMass", 398, 312, "7085", "7086", Color.red, false);
+	StopButton rsavinhill = new StopButton("Savin Hill", 431, 312, "7087", "7088", Color.red, false);
+	StopButton rfieldscorner = new StopButton("Fields Corner", 451, 290, "7089", "7090", Color.red, false);
+	StopButton rshawmut = new StopButton("Shawmut", 470, 268, "7091", "7092", Color.red, false);
+	StopButton rashmont = new StopButton("Ashmont", 491, 244, "7093", "7094", Color.red, false);
+	StopButton rjfkBraintree = new StopButton("JFK/UMass", 398, 312, "7095", "7096", Color.red, false);
+	StopButton rnorthquincy = new StopButton("North Quincy", 578, 312, "7097", "7098", Color.red, false);
+	StopButton rwollaston = new StopButton("Wollaston", 614, 312, "7099", "70100", Color.red, false);
+	StopButton rquincycenter = new StopButton("Quincy Center", 654, 312, "70101", "70102", Color.red, false);
+	StopButton rquincyadams = new StopButton("Quincy Adams", 692, 312, "70103", "70104", Color.red, false);
+	StopButton rbraintree = new StopButton("Braintree", 730, 311, "70103", "70104", Color.red, true);
+	StopButton rcedargrove = new StopButton("Cedar Grove", 518, 244, "70105", "70106", Color.red, false);
+	StopButton rbutler = new StopButton("Butler", 547, 244, "7097", "7098", Color.red, false);
+	StopButton rmilton = new StopButton("Milton", 578, 244, "7099", "70100", Color.red, false);
+	StopButton rcentralave = new StopButton("Central Ave", 608, 244, "70101", "70102", Color.red, false);
+	StopButton rvalleyrd = new StopButton("Valley Road", 641, 244, "70103", "70104", Color.red, false);
+	StopButton rcapenst = new StopButton("Capen Street", 671, 244, "70105", "70106", Color.red, false);
+	StopButton rmattapan = new StopButton("Mattapan", 699, 243, "70107", "70108", Color.red, true);
 	
 	//blue line button placement
-	StopButton bbowdoin = new StopButton(50, 517, "7039", "7039", Color.blue, true);
-	StopButton bgovctr = new StopButton(99, 518, "7040", "7041", Color.blue, false);
-	StopButton bstate = new StopButton(160, 518, "7042", "7043", Color.blue, false);
-	StopButton baquarium = new StopButton(221, 518, "7044", "7045", Color.blue, false);
-	StopButton bmaverick = new StopButton(284, 518, "7046", "7047", Color.blue, false);
-	StopButton bairport = new StopButton(347, 518, "7048", "7049", Color.blue, false);
-	StopButton bwoodisland = new StopButton(417, 518, "7050", "7051", Color.blue, false);
-	StopButton borientheights = new StopButton(485, 518, "7052", "7053", Color.blue, false);
-	StopButton bsuffolkdowns = new StopButton(552, 518, "7054", "7055", Color.blue, false);
-	StopButton bbeachmont = new StopButton(616, 518, "7056", "7057", Color.blue, false);
-	StopButton breverebeach = new StopButton(679, 518, "7058", "7059", Color.blue, false);
-	StopButton bwonderland = new StopButton(728, 516, "7060", "7060", Color.blue, true);
+	StopButton bbowdoin = new StopButton("Bowdoin", 50, 517, "7039", "7039", Color.blue, true);
+	StopButton bgovctr = new StopButton("Government Center", 99, 518, "7040", "7041", Color.blue, false);
+	StopButton bstate = new StopButton("State Street", 160, 518, "7042", "7043", Color.blue, false);
+	StopButton baquarium = new StopButton("Aquarium", 221, 518, "7044", "7045", Color.blue, false);
+	StopButton bmaverick = new StopButton("Maverick", 284, 518, "7046", "7047", Color.blue, false);
+	StopButton bairport = new StopButton("Airport", 347, 518, "7048", "7049", Color.blue, false);
+	StopButton bwoodisland = new StopButton("Wood Island", 417, 518, "7050", "7051", Color.blue, false);
+	StopButton borientheights = new StopButton("Orient Heights", 485, 518, "7052", "7053", Color.blue, false);
+	StopButton bsuffolkdowns = new StopButton("Suffolk Downs", 552, 518, "7054", "7055", Color.blue, false);
+	StopButton bbeachmont = new StopButton("Beachmont", 616, 518, "7056", "7057", Color.blue, false);
+	StopButton breverebeach = new StopButton("Revere Beach", 679, 518, "7058", "7059", Color.blue, false);
+	StopButton bwonderland = new StopButton("Wonderland", 728, 516, "7060", "7060", Color.blue, true);
 			
 	List<StopButton> oLine = new ArrayList<StopButton>();
 	List<StopButton> rLine = new ArrayList<StopButton>();
 	List<StopButton> bLine = new ArrayList<StopButton>();
+	StopButton current;
+	
+	MapWindow window;
 	
 	public Main(){
+		
+		ashmont.setSize(100, 50);
+		braintree.setSize(100, 50);
+		ashmont.addMouseListener(this);
+		braintree.addMouseListener(this);
 		
 		oLine.add(oforesthills);
 		oLine.add(ogreenst);
@@ -152,7 +168,7 @@ public class Main extends JFrame implements MouseListener{
 		bLine.add(breverebeach);
 		bLine.add(bwonderland);
 		
-		MapWindow window = new MapWindow();
+		window = new MapWindow();
 		//orange line mouse listeners
 		oforesthills.addMouseListener(this);
 		ogreenst.addMouseListener(this);
@@ -309,17 +325,51 @@ public class Main extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		StopButton button = (StopButton)e.getSource();
-		if(e.getClickCount() == 2){
-			System.out.println("double click");
-			JFrame frame = new JFrame();
-			OrangeStopWindow stop = new OrangeStopWindow();
-			frame.setSize(800,600);
+		
+		StopWindow stop;
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setSize(800,600);
+		if(e.getSource() == ashmont){
+			System.out.println("ashmont");
+			stop = window.openRedWindowAshmont(current);
 			frame.add(stop);
 			frame.setVisible(true);
-		}else{
+		}
+		if(e.getSource() == braintree){
+			System.out.println("braintree");
+			stop = window.openRedWindowBraintree(current);
+			frame.add(stop);
+			frame.setVisible(true);
+		}
+		if(e.getClickCount() == 2 && e.getSource() instanceof StopButton){
+			
+			System.out.println("double click");
+			current = (StopButton)e.getSource();
+			if(current.line == Color.orange){
+				stop = window.openOrangeWindow(current);
+				frame.add(stop);
+			}else if(current.line == Color.blue){
+				stop = window.openBlueWindow(current);
+				frame.add(stop);
+			}else{
+				redSplit = new JDialog();
+				redSplit.setLayout(new GridLayout(1,2));
+				redSplit.add(ashmont);
+				redSplit.add(braintree);
+				redSplit.setSize(300,100);
+				redSplit.setVisible(true);
+				redSplit.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+				redSplit.setModal(true);
+			}
+			
+			
+		}else if(e.getSource() instanceof StopButton){
+			current = (StopButton)e.getSource();
 			System.out.println("single click");
-			button.singleClicked();
+			current.singleClicked();
+			window.processClick(current);
 		}
 		
 		

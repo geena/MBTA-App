@@ -17,7 +17,7 @@ import java.awt.event.MouseListener;
 
 public class StopButton extends JButton{
 	boolean selected; // if the stop has been selected
-	
+	String sName;
 	String stopIDa; //stopID in one direction
 	String stopIDb; //stopID in the other direction
 	int x;// xcoordinate on the screen
@@ -32,7 +32,7 @@ public class StopButton extends JButton{
 	private ImageIcon littleInactive;
 	Color line;
 	Boolean isEnd;
-	public StopButton(int x, int y, String ida, String idb, Color l, Boolean end){
+	public StopButton(String name, int x, int y, String ida, String idb, Color l, Boolean end){
 		bigActive = new ImageIcon(BIGACTIVEICON);
 		littleActive = new ImageIcon(LITTLEACTIVEICON);
 		bigInactive = new ImageIcon(BIGINACTIVEICON);
@@ -44,6 +44,7 @@ public class StopButton extends JButton{
 			this.setIcon(littleInactive);
 		}
 		this.setEnabled(true);
+		sName = name;
 		selected = false;
 		this.x = x + 5;
 		this.y = y + 5;

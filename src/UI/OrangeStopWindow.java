@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
 public class OrangeStopWindow extends StopWindow{
 	private String BACKGROUND = "src/UI/OrangeStopWindow.png";
 	BufferedImage bg;
-	public OrangeStopWindow(){
+	public OrangeStopWindow(String name){
+		super(name);
 		try {
 			bg = ImageIO.read(new File(BACKGROUND));
 		} catch (IOException e) {

@@ -2,21 +2,13 @@ package UI;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
 import models.MBTAResponse;
 import models.TripList;
 import requests.AbstractMBTARequest;
@@ -26,6 +18,7 @@ import services.MBTAService;
 
 
 public class MapWindow extends JPanel{
+	
 	private String MAPFILE= "src/UI/Map.jpg"; //the file name of the map background
 	private String ICONFILE= "src/UI/icon2.png"; //file name of the train icon
 	private String UPSIDEDOWICONFILE= "src/UI/iconReverse2.png"; //file name of the upside down train icon
@@ -38,13 +31,13 @@ public class MapWindow extends JPanel{
 	//private Train.TripList;
 	private final MBTAService _mbtaService;
 	private List<TripList> _allTrainsList;
-	ActionListener listener;
-	
+	public List<StopButton> stops;
 	
 	public MapWindow(){
 		setLayout(null);
 		_mbtaService = new MBTAService();
 		_allTrainsList = new ArrayList<TripList>();
+		stops = new ArrayList<StopButton>();
 		try {
 			background = ImageIO.read(new File(MAPFILE));
 			trainIcon = ImageIO.read(new File(ICONFILE));	
@@ -58,6 +51,38 @@ public class MapWindow extends JPanel{
 		
 	}
 	
+	public StopWindow openOrangeWindow(StopButton button){
+		return new OrangeStopWindow(button.sName);
+	}
+	
+	public StopWindow openBlueWindow(StopButton button){
+		return new BlueStopWindow(button.sName);
+	}
+	
+	public StopWindow openRedWindowAshmont(StopButton button){
+		return new RedStopWindowAshmont(button.sName);
+	}
+	
+	public StopWindow openRedWindowBraintree(StopButton button){
+		return new RedStopWindowBraintree(button.sName);
+	}
+	
+	public void processClick(StopButton button){
+		if(stops.indexOf(button) == -1){
+			stops.add(button);
+		}else{
+			stops.remove(button);
+		}
+		System.out.println(stops.size());
+	}
+	
+	
+	public void removeStop(StopButton button){
+		stops.remove(button);
+	}
+	public void addStop(StopButton button){
+		stops.add(button);
+	}
 	
 	
 	
@@ -1333,29 +1358,6 @@ public class MapWindow extends JPanel{
 			return null;
 		}
 	}
-	
-	private void clearAllButtons(){
-		for(int i = 0; i<this.getComponents().length; i++){
-			System.out.println(this.getComponents()[i]);
-		}
-	}
-
-	
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		System.out.println(e.getSource());
-		
-		if(e.getSource() instanceof MapWindow == false)
-		clearAllButtons();
-		repaint();
-	}
-
-
-
-	
-	
-	
-	
 	
 }
 
