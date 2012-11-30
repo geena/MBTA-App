@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 DS_Store
 *.class
 .project
 .classpath
+=======
+.DS_STORE
+*.class
+/bin/UI
+/bin/
+/bin
+>>>>>>> b6d029cbcfe7c184db012bd14e924e761fedb279
