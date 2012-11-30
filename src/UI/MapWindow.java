@@ -7,11 +7,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+<<<<<<< HEAD
 import commons.UserOptions;
 
+=======
+>>>>>>> 38e7255257b8946dbb277bfc59fb6f2b9453b238
 import models.MBTAResponse;
 import models.TripList;
 import requests.AbstractMBTARequest;
