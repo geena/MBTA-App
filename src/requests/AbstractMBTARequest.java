@@ -49,7 +49,7 @@ public abstract class AbstractMBTARequest
 		return _mbtaResponse;
 	}
 
-	protected void parse(String json)
+	public void parse(String json)
 	{
 		ObjectMapper objectMapper 	= new ObjectMapper();
 		JsonFactory jsonFactory 	= new JsonFactory();

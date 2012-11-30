@@ -1,15 +1,10 @@
 package UI;
 
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.Event;
 import java.awt.Insets;
-import java.io.File;
-import java.io.IOException;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 
 

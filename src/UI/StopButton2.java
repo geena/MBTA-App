@@ -2,7 +2,8 @@ package UI;
 
 import java.awt.Insets;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 
 public class StopButton2 extends JButton{
