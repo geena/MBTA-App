@@ -11,13 +11,13 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import commons.UserOptions;
-
 import models.MBTAResponse;
 import models.TripList;
 import requests.AbstractMBTARequest;
 import requests.Closure;
 import services.MBTAService;
+
+import commons.UserOptions;
 
 
 
@@ -74,6 +74,7 @@ public class MapWindow extends JPanel{
 	public void processClick(StopButton button){
 		if(stops.indexOf(button) == -1){
 			stops.add(button);
+
 		}else{
 			stops.remove(button);
 		}
@@ -83,9 +84,11 @@ public class MapWindow extends JPanel{
 
 	public void removeStop(StopButton button){
 		stops.remove(button);
+		UserOptions.stopList = stops;
 	}
 	public void addStop(StopButton button){
 		stops.add(button);
+		UserOptions.stopList = stops;
 	}
 
 
