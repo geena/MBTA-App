@@ -1,5 +1,7 @@
 package services;
 
+import java.io.IOException;
+
 import models.MBTAResponse;
 import requests.AbstractMBTARequest;
 import requests.Closure;
@@ -9,11 +11,12 @@ import requests.GetRedLineTrainsRequest;
 
 public class MBTAService
 {
-	public void getTestRedLineTrains(Closure<Void, Void, MBTAResponse> successClosure,
-			Closure<Void, Void, MBTAResponse> errorClosure,
-			Closure<Void, Void, MBTAResponse> cancelClosure)
+	public void getTestRedLineTrains(Closure<Void, AbstractMBTARequest, MBTAResponse> successClosure,
+			Closure<Void, AbstractMBTARequest, MBTAResponse> errorClosure,
+			Closure<Void, AbstractMBTARequest, MBTAResponse> cancelClosure) throws IOException
 	{
-		//TODO do something with json and readfile
+		GetRedLineTrainsRequest request = new GetRedLineTrainsRequest(successClosure, errorClosure, cancelClosure);
+		request.doTestRequest();
 		
 	}
 	
@@ -25,12 +28,12 @@ public class MBTAService
 		request.doRequest();
 	}
 	
-	public void getTestBlueLineTrains(Closure<Void, Void, MBTAResponse> successClosure,
-			Closure<Void, Void, MBTAResponse> errorClosure,
-			Closure<Void, Void, MBTAResponse> cancelClosure)
+	public void getTestBlueLineTrains(Closure<Void, AbstractMBTARequest, MBTAResponse> successClosure,
+			Closure<Void, AbstractMBTARequest, MBTAResponse> errorClosure,
+			Closure<Void, AbstractMBTARequest, MBTAResponse> cancelClosure) throws IOException
 	{
-		//TODO do something with json
-		
+		GetBlueLineTrainsRequest request = new GetBlueLineTrainsRequest(successClosure, errorClosure, cancelClosure);
+		request.doTestRequest();
 	}
 	
 	public void getBlueLineTrains(Closure<Void, AbstractMBTARequest, MBTAResponse> successClosure,
@@ -41,12 +44,12 @@ public class MBTAService
 		request.doRequest();
 	}
 	
-	public void getTestOrangeLineTrains(Closure<Void, Void, MBTAResponse> successClosure,
-			Closure<Void, Void, MBTAResponse> errorClosure,
-			Closure<Void, Void, MBTAResponse> cancelClosure)
+	public void getTestOrangeLineTrains(Closure<Void, AbstractMBTARequest, MBTAResponse> successClosure,
+			Closure<Void, AbstractMBTARequest, MBTAResponse> errorClosure,
+			Closure<Void, AbstractMBTARequest, MBTAResponse> cancelClosure) throws IOException
 	{
-		//TODO do something with json
-		
+		GetOrangeLineTrainsRequest request = new GetOrangeLineTrainsRequest(successClosure, errorClosure, cancelClosure);
+		request.doTestRequest();
 	}
 	
 	public void getOrangeLineTrains(Closure<Void, AbstractMBTARequest, MBTAResponse> successClosure,

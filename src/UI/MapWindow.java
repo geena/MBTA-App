@@ -94,7 +94,7 @@ public class MapWindow extends JPanel{
 
 
 	//updates Trip List and then paints trains
-	private void paintTrains(Graphics g){
+	private void paintTrains(Graphics g) throws IOException{
 
 		this.getTrainLocations();
 		paintRedTrains(g);
@@ -1177,34 +1177,49 @@ public class MapWindow extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(background, 0, 0, null); 
-		this.paintTrains(g);
+		try {
+			this.paintTrains(g);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
-	private void getTrainLocations()
+	private void getTrainLocations() throws IOException
 	{
 		getRedLineTrains();
 	}
 
-	private void getOrangeLineTrains()
+	private void getOrangeLineTrains() throws IOException
 	{
 		GetOrangeTrainsSuccessClosure successClosure = new GetOrangeTrainsSuccessClosure();
 		GetOrangeTrainsErrorClosure errorClosure = new GetOrangeTrainsErrorClosure();
 		GetOrangeTrainsCancelClosure cancelClosure = new GetOrangeTrainsCancelClosure();
 
-		_mbtaService.getOrangeLineTrains(successClosure, errorClosure, cancelClosure);
+		if(UserOptions.useTestData)
+		{
+			_mbtaService.getTestOrangeLineTrains(successClosure, errorClosure, cancelClosure);
+		} else {
+			_mbtaService.getOrangeLineTrains(successClosure, errorClosure, cancelClosure);
+		}	
 	}
 
-	private void getBlueLineTrains()
+	private void getBlueLineTrains() throws IOException
 	{
 		GetBlueTrainsSuccessClosure successClosure = new GetBlueTrainsSuccessClosure();
 		GetBlueTrainsErrorClosure errorClosure = new GetBlueTrainsErrorClosure();
 		GetBlueTrainsCancelClosure cancelClosure = new GetBlueTrainsCancelClosure();
 
-		_mbtaService.getBlueLineTrains(successClosure, errorClosure, cancelClosure);
+		if(UserOptions.useTestData)
+		{
+			_mbtaService.getTestBlueLineTrains(successClosure, errorClosure, cancelClosure);
+		} else {
+			_mbtaService.getBlueLineTrains(successClosure, errorClosure, cancelClosure);
+		}	
 	}
 
-	private void getRedLineTrains()
+	private void getRedLineTrains() throws IOException
 	{
 		GetRedTrainsSuccessClosure successClosure = new GetRedTrainsSuccessClosure();
 		GetRedTrainsErrorClosure errorClosure = new GetRedTrainsErrorClosure();
@@ -1260,7 +1275,7 @@ public class MapWindow extends JPanel{
 		}
 
 		@Override
-		public Void invoke(AbstractMBTARequest caller, MBTAResponse data)
+		public Void invoke(AbstractMBTARequest caller, MBTAResponse data) throws IOException
 		{
 			TripList tripList = data.getTripList();
 			_allTrainsList.add(tripList);
@@ -1311,7 +1326,7 @@ public class MapWindow extends JPanel{
 		}
 
 		@Override
-		public Void invoke(AbstractMBTARequest caller, MBTAResponse data)
+		public Void invoke(AbstractMBTARequest caller, MBTAResponse data) throws IOException
 		{
 			TripList tripList = data.getTripList();
 			_allTrainsList.add(tripList);

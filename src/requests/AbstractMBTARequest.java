@@ -1,6 +1,7 @@
 package requests;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -26,6 +27,8 @@ public abstract class AbstractMBTARequest
 	public Closure<Void, AbstractMBTARequest, MBTAResponse> _cancelClosure;
 
 	private MBTAResponse _mbtaResponse;
+	
+	private String _testJson;
 
 	public AbstractMBTARequest(Closure<Void, AbstractMBTARequest, MBTAResponse> successClosure,
 			Closure<Void, AbstractMBTARequest, MBTAResponse> errorClosure,
@@ -47,6 +50,26 @@ public abstract class AbstractMBTARequest
 	public MBTAResponse getMBTAResponse()
 	{
 		return _mbtaResponse;
+	}
+	
+	public void doTestRequest() throws IOException
+	{
+		_testJson = readFile("C://test.json");
+		parse(_testJson);
+	}
+	
+	private String readFile( String file ) throws IOException {
+	    BufferedReader reader = new BufferedReader( new FileReader (file));
+	    String         line = null;
+	    StringBuilder  stringBuilder = new StringBuilder();
+	    String         ls = System.getProperty("line.separator");
+
+	    while( ( line = reader.readLine() ) != null ) {
+	        stringBuilder.append( line );
+	        stringBuilder.append( ls );
+	    }
+
+	    return stringBuilder.toString();
 	}
 
 	public void parse(String json)
@@ -77,7 +100,7 @@ public abstract class AbstractMBTARequest
 		requestThread.run();
 	}
 
-	protected void execute(int timeout)
+	protected void execute(int timeout) throws IOException
 	{
 		HttpURLConnection connection = null;
 		URL serverAddress = null;
@@ -135,7 +158,12 @@ public abstract class AbstractMBTARequest
 	{
 		public void run()
 		{
-			execute(TIME_OUT);
+			try {
+				execute(TIME_OUT);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
