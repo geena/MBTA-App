@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import commons.UserOptions;
+
 import models.MBTAResponse;
 import models.TripList;
 import requests.AbstractMBTARequest;
@@ -32,6 +35,7 @@ public class MapWindow extends JPanel{
 	private final MBTAService _mbtaService;
 	private List<TripList> _allTrainsList;
 	public List<StopButton> stops;
+	
 	
 	public MapWindow(){
 		setLayout(null);
@@ -70,6 +74,7 @@ public class MapWindow extends JPanel{
 	public void processClick(StopButton button){
 		if(stops.indexOf(button) == -1){
 			stops.add(button);
+			
 		}else{
 			stops.remove(button);
 		}
@@ -79,9 +84,11 @@ public class MapWindow extends JPanel{
 	
 	public void removeStop(StopButton button){
 		stops.remove(button);
+		UserOptions.stopList = stops;
 	}
 	public void addStop(StopButton button){
 		stops.add(button);
+		UserOptions.stopList = stops;
 	}
 	
 	
