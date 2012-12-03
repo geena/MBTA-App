@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 
+import commons.Algorithms;
+
 
 
 
@@ -344,15 +346,16 @@ public class Main extends JFrame implements MouseListener{
 			frame.setVisible(true);
 		}
 		if(e.getClickCount() == 2 && e.getSource() instanceof StopButton){
-			
 			System.out.println("double click");
 			current = (StopButton)e.getSource();
 			if(current.line == Color.orange){
 				stop = window.openOrangeWindow(current);
 				frame.add(stop);
+				frame.setVisible(true);
 			}else if(current.line == Color.blue){
 				stop = window.openBlueWindow(current);
 				frame.add(stop);
+				frame.setVisible(true);
 			}else{
 				redSplit = new JDialog();
 				redSplit.setLayout(new GridLayout(1,2));
@@ -363,6 +366,7 @@ public class Main extends JFrame implements MouseListener{
 				redSplit.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 				redSplit.setModal(true);
 			}
+			Algorithms.executeTask();
 			
 			
 		}else if(e.getSource() instanceof StopButton){

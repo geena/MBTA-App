@@ -12,6 +12,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import models.MBTAResponse;
+import models.Predictions;
 import models.TripList;
 import requests.AbstractMBTARequest;
 import requests.Closure;
@@ -54,21 +55,63 @@ public class MapWindow extends JPanel{
 
 
 	}
+	
+	public List getOrangePredictions(String name, String direction){
+		List<Predictions> predictions = new ArrayList<Predictions>();
+		for(int i = 0; i < _allTrainsList.get(2).getTrips().size(); i++){
+			for(int j = 0; j < _allTrainsList.get(2).getTrips().get(i).getPredictions().size(); j++){
+				if(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(j).getStopName().compareTo(name) == 0
+						&& _allTrainsList.get(2).getTrips().get(i).getDestination().compareTo(direction)==0){
+					predictions.add(_allTrainsList.get(2).getTrips().get(i).getPredictions().get(j));
+				}
+			}
+			
+		}
+		return predictions;
+	}
+	
+	public List getRedPredictions(String name, String direction){
+		List<Predictions> predictions = new ArrayList<Predictions>();
+		for(int i = 0; i < _allTrainsList.get(0).getTrips().size(); i++){
+			for(int j = 0; j < _allTrainsList.get(0).getTrips().get(i).getPredictions().size(); j++){
+				if(_allTrainsList.get(0).getTrips().get(i).getPredictions().get(j).getStopName().compareTo(name) == 0
+						&& _allTrainsList.get(0).getTrips().get(i).getDestination().compareTo(direction)==0){
+					predictions.add(_allTrainsList.get(0).getTrips().get(i).getPredictions().get(j));
+				}
+			}
+			
+		}
+		return predictions;
+	}
+	
+	public List getBluePredictions(String name, String direction){
+		List<Predictions> predictions = new ArrayList<Predictions>();
+		for(int i = 0; i < _allTrainsList.get(1).getTrips().size(); i++){
+			for(int j = 0; j < _allTrainsList.get(1).getTrips().get(i).getPredictions().size(); j++){
+				if(_allTrainsList.get(1).getTrips().get(i).getPredictions().get(j).getStopName().compareTo(name) == 0
+						&& _allTrainsList.get(1).getTrips().get(i).getDestination().compareTo(direction)==0){
+					predictions.add(_allTrainsList.get(1).getTrips().get(i).getPredictions().get(j));
+				}
+			}
+			
+		}
+		return predictions;
+	}
 
 	public StopWindow openOrangeWindow(StopButton button){
-		return new OrangeStopWindow(button.sName);
+		return new OrangeStopWindow(button.sName, this);
 	}
 
 	public StopWindow openBlueWindow(StopButton button){
-		return new BlueStopWindow(button.sName);
+		return new BlueStopWindow(button.sName, this);
 	}
 
 	public StopWindow openRedWindowAshmont(StopButton button){
-		return new RedStopWindowAshmont(button.sName);
+		return new RedStopWindowAshmont(button.sName, this);
 	}
 
 	public StopWindow openRedWindowBraintree(StopButton button){
-		return new RedStopWindowBraintree(button.sName);
+		return new RedStopWindowBraintree(button.sName, this);
 	}
 
 	public void processClick(StopButton button){
@@ -78,7 +121,6 @@ public class MapWindow extends JPanel{
 		}else{
 			stops.remove(button);
 		}
-		System.out.println(stops.size());
 	}
 
 
