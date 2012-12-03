@@ -17,6 +17,8 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import commons.UserOptions;
+
 public abstract class AbstractMBTARequest
 {
 	private static final String SERVER_URL 	= "http://developer.mbta.com/lib/rthr/";
@@ -54,7 +56,7 @@ public abstract class AbstractMBTARequest
 	
 	public void doTestRequest() throws IOException
 	{
-		_testJson = readFile("C://test.json");
+		_testJson = readFile(UserOptions.TestDataDirectory);
 		parse(_testJson);
 	}
 	

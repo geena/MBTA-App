@@ -15,7 +15,7 @@ public class UserOptions
 	public static boolean fastestRoute 		= false;
 	public static boolean earliestArrival 	= false;
 	public static boolean fewestTransfers 	= false;
-	public static boolean useTestData 		= false;
+	public static String TestDataDirectory  = null;
 	
 	public static void reset()
 	{
@@ -27,6 +27,6 @@ public class UserOptions
 		fastestRoute 		= false;
 		earliestArrival 	= false;
 		fewestTransfers 	= false;
-		useTestData			= false;
+		TestDataDirectory	= null;
 	}
 }
