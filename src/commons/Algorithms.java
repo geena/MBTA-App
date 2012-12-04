@@ -242,23 +242,23 @@ public class Algorithms
 		List<StopButton> ashmontButtonList = new ArrayList<StopButton>();
 		List<StopButton> braintreeButtonList = new ArrayList<StopButton>();
 		//Ashmont Stops
-		ashmontButtonList.add(new StopButton("Cedar Grove", 518, 244, "70105", "70106", Color.red, false));
-		ashmontButtonList.add(new StopButton("Butler", 547, 244, "7097", "7098", Color.red, false));
-		ashmontButtonList.add(new StopButton("Milton", 578, 244, "7099", "70100", Color.red, false));
-		ashmontButtonList.add(new StopButton("Central Ave", 608, 244, "70101", "70102", Color.red, false));
-		ashmontButtonList.add(new StopButton("Valley Road", 641, 244, "70103", "70104", Color.red, false));
-		ashmontButtonList.add(new StopButton("Capen Street", 671, 244, "70105", "70106", Color.red, false));
-		ashmontButtonList.add(new StopButton("Mattapan", 699, 243, "70107", "70108", Color.red, true));
-		ashmontButtonList.add(new StopButton("Savin Hill", 431, 312, "7087", "7088", Color.red, false));
-		ashmontButtonList.add(new StopButton("Fields Corner", 451, 290, "7089", "7090", Color.red, false));
-		ashmontButtonList.add(new StopButton("Shawmut", 470, 268, "7091", "7092", Color.red, false));
-		ashmontButtonList.add(new StopButton("Ashmont", 491, 244, "7093", "7094", Color.red, false));
+		ashmontButtonList.add(new StopButton("Cedar Grove", 518, 244, "700105", "700106", Color.red, false));
+		ashmontButtonList.add(new StopButton("Butler", 547, 244, "70097", "70098", Color.red, false));
+		ashmontButtonList.add(new StopButton("Milton", 578, 244, "70099", "700100", Color.red, false));
+		ashmontButtonList.add(new StopButton("Central Ave", 608, 244, "700101", "700102", Color.red, false));
+		ashmontButtonList.add(new StopButton("Valley Road", 641, 244, "700103", "700104", Color.red, false));
+		ashmontButtonList.add(new StopButton("Capen Street", 671, 244, "700105", "700106", Color.red, false));
+		ashmontButtonList.add(new StopButton("Mattapan", 699, 243, "700107", "700108", Color.red, true));
+		ashmontButtonList.add(new StopButton("Savin Hill", 431, 312, "70087", "70088", Color.red, false));
+		ashmontButtonList.add(new StopButton("Fields Corner", 451, 290, "70089", "70090", Color.red, false));
+		ashmontButtonList.add(new StopButton("Shawmut", 470, 268, "70091", "70092", Color.red, false));
+		ashmontButtonList.add(new StopButton("Ashmont", 491, 244, "70093", "70094", Color.red, false));
 		//Braintree Stops
-		braintreeButtonList.add(new StopButton("North Quincy", 578, 312, "7097", "7098", Color.red, false));
-		braintreeButtonList.add(new StopButton("Wollaston", 614, 312, "7099", "70100", Color.red, false));
-		braintreeButtonList.add(new StopButton("Quincy Center", 654, 312, "70101", "70102", Color.red, false));
-		braintreeButtonList.add(new StopButton("Quincy Adams", 692, 312, "70103", "70104", Color.red, false));
-		braintreeButtonList.add(new StopButton("Braintree", 730, 311, "70103", "70104", Color.red, true));
+		braintreeButtonList.add(new StopButton("North Quincy", 578, 312, "70097", "70098", Color.red, false));
+		braintreeButtonList.add(new StopButton("Wollaston", 614, 312, "70099", "700100", Color.red, false));
+		braintreeButtonList.add(new StopButton("Quincy Center", 654, 312, "700101", "700102", Color.red, false));
+		braintreeButtonList.add(new StopButton("Quincy Adams", 692, 312, "700103", "700104", Color.red, false));
+		braintreeButtonList.add(new StopButton("Braintree", 730, 311, "700103", "700104", Color.red, true));
 		
 		List<IStation> ashmontIStations = new ArrayList<IStation>();
 		List<IStation> braintreeIStations = new ArrayList<IStation>();
