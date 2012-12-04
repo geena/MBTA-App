@@ -2,6 +2,8 @@ package UI;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import models.MBTAResponse;
 import models.Predictions;
@@ -37,8 +40,19 @@ public class MapWindow extends JPanel{
 	private final MBTAService _mbtaService;
 	private List<TripList> _allTrainsList;
 	public List<StopButton> stops;
-
+	Timer timer;
+	int TICK = 5;
 	public MapWindow(){
+		timer = new Timer(TICK, new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				repaint();
+			}
+			
+		});
+		
 		setLayout(null);
 		_mbtaService = new MBTAService();
 		_allTrainsList = new ArrayList<TripList>();
@@ -121,6 +135,7 @@ public class MapWindow extends JPanel{
 		}else{
 			removeStop(button);
 		}
+		
 	}
 
 
@@ -1218,13 +1233,16 @@ public class MapWindow extends JPanel{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(background, 0, 0, null); 
+		g.drawImage(background, 0, 0, null);
+		
 		try {
 			this.paintTrains(g);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		timer.restart();
+		timer.start();
 	}
 
 

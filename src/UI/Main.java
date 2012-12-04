@@ -1,11 +1,10 @@
 package UI;
 
 
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
+
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -13,21 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.border.LineBorder;
 
 import commons.Algorithms;
 import commons.IStation;
@@ -141,7 +134,6 @@ public class Main extends JFrame implements MouseListener{
 	JLabel departureTimeLabel = new JLabel("Departure/Arrival Time:");
 	
 	public Main(){
-		
 		
 		ashmont.setSize(100, 50);
 		braintree.setSize(100, 50);
@@ -431,12 +423,12 @@ public class Main extends JFrame implements MouseListener{
   		layout = new BoxLayout(getContentPane(), BoxLayout.Y_AXIS);
   		setLayout(layout);
   		this.add(window);
-  		this.add(subMenu);
+  		
   		
   		
   		setLocationRelativeTo(null);
         setTitle("MBTA");
-        setSize(800, 725);
+        setSize(800, 600);
         setResizable(false);
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -518,7 +510,7 @@ public class Main extends JFrame implements MouseListener{
 			JFrame frame = new JFrame();
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			
-			frame.add(new InstructionsWindow(Algorithms.executeTask().get(0)));
+			//frame.add(new InstructionsWindow(Algorithms.executeTask().get(0)));
 			frame.setVisible(true);
 		}
 		if(e.getSource() == ashmont){
@@ -567,9 +559,27 @@ public class Main extends JFrame implements MouseListener{
 			current = (StopButton)e.getSource();
 			current.singleClicked();
 			window.processClick(current);
+			if(window.stops.size() > 1){
+				subMenuActivation();
+			}else{
+				subMenuDeactivation();
+			}
+			
 		}
 		
 		
+	}
+	
+	private void subMenuActivation(){
+		this.add(subMenu);
+		this.setSize(800, 725);
+		repaint();
+	}
+	
+	private void subMenuDeactivation(){
+		this.remove(subMenu);
+		this.setSize(800, 600);
+		repaint();
 	}
 
 	@Override
@@ -595,6 +605,7 @@ public class Main extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	
 }
