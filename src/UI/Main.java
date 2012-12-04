@@ -13,12 +13,19 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 
 import commons.Algorithms;
+import commons.IStation;
+import commons.IntersectionStation;
+import commons.LineColor;
+import commons.Station;
 
 
 
 
 public class Main extends JFrame implements MouseListener{
 	
+	private List<IStation> _redLineStations = new ArrayList<IStation>();
+	private List<IStation> _blueLineStations = new ArrayList<IStation>();
+	private List<IStation> _orangeLineStations = new ArrayList<IStation>();
 	JDialog redSplit;
 	final JButton ashmont = new JButton("Ashmont");
 	final JButton braintree = new JButton("Braintree");
@@ -169,6 +176,61 @@ public class Main extends JFrame implements MouseListener{
 		bLine.add(bbeachmont);
 		bLine.add(breverebeach);
 		bLine.add(bwonderland);
+		
+		for(StopButton button : rLine)
+		{
+			if(button.sName.equals("Downtown Crossing"))
+			{
+				List<LineColor> lineColorList = new ArrayList<LineColor>();
+				lineColorList.add(LineColor.RED);
+				lineColorList.add(LineColor.ORANGE);
+				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+				_redLineStations.add(newStation);
+			}else
+			{
+				Station newStation = new Station(button, LineColor.RED);
+				_redLineStations.add(newStation);
+			}
+		}
+		
+		for(StopButton button : oLine)
+		{
+			if(button.sName.equals("Downtown Crossing"))
+			{
+				List<LineColor> lineColorList = new ArrayList<LineColor>();
+				lineColorList.add(LineColor.RED);
+				lineColorList.add(LineColor.ORANGE);
+				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+				_redLineStations.add(newStation);
+			}else if(button.sName.equals("State Street"))
+			{
+				List<LineColor> lineColorList = new ArrayList<LineColor>();
+				lineColorList.add(LineColor.BLUE);
+				lineColorList.add(LineColor.ORANGE);
+				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+				_orangeLineStations.add(newStation);
+			}else
+			{
+				Station newStation = new Station(button, LineColor.ORANGE);
+				_orangeLineStations.add(newStation);
+			}
+		}
+		
+		for(StopButton button : bLine)
+		{
+			if(button.sName.equals("State Street"))
+			{
+				List<LineColor> lineColorList = new ArrayList<LineColor>();
+				lineColorList.add(LineColor.BLUE);
+				lineColorList.add(LineColor.ORANGE);
+				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+				_blueLineStations.add(newStation);
+			}else
+			{
+				Station newStation = new Station(button, LineColor.BLUE);
+				_blueLineStations.add(newStation);
+			}
+		}
 		
 		window = new MapWindow();
 		//orange line mouse listeners
@@ -322,7 +384,20 @@ public class Main extends JFrame implements MouseListener{
 		new Main();
 	}
 
+	public List<IStation> getRedLineStations()
+	{
+		return _redLineStations;
+	}
 	
+	public List<IStation> getBlueLineStations()
+	{
+		return _blueLineStations;
+	}
+	
+	public List<IStation> getOrangeLineStations()
+	{
+		return _orangeLineStations;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
