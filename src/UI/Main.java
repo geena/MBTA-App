@@ -506,11 +506,13 @@ public class Main extends JFrame implements MouseListener{
 			updateOptions();
 		}
 		if(e.getSource() == makeTrip){
-			
+			updateOptions();
 			JFrame frame = new JFrame();
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			
-			//frame.add(new InstructionsWindow(Algorithms.executeTask().get(0)));
+			Algorithms algo = new Algorithms(window.getAllTrainsList(), getRedLineStations(), 
+					getBlueLineStations(), getOrangeLineStations());
+			frame.add(new InstructionsWindow(algo.executeTask().get(0)));
+			frame.setSize(300, 400);
 			frame.setVisible(true);
 		}
 		if(e.getSource() == ashmont){
