@@ -116,10 +116,10 @@ public class MapWindow extends JPanel{
 
 	public void processClick(StopButton button){
 		if(stops.indexOf(button) == -1){
-			stops.add(button);
+			addStop(button);
 
 		}else{
-			stops.remove(button);
+			removeStop(button);
 		}
 	}
 
@@ -1239,7 +1239,7 @@ public class MapWindow extends JPanel{
 		GetOrangeTrainsErrorClosure errorClosure = new GetOrangeTrainsErrorClosure();
 		GetOrangeTrainsCancelClosure cancelClosure = new GetOrangeTrainsCancelClosure();
 
-		if(!UserOptions.TestDataDirectory.equals(null))
+		if(UserOptions.TestDataDirectory != null)
 		{
 			_mbtaService.getTestOrangeLineTrains(successClosure, errorClosure, cancelClosure);
 		} else {
@@ -1253,7 +1253,7 @@ public class MapWindow extends JPanel{
 		GetBlueTrainsErrorClosure errorClosure = new GetBlueTrainsErrorClosure();
 		GetBlueTrainsCancelClosure cancelClosure = new GetBlueTrainsCancelClosure();
 
-		if(!UserOptions.TestDataDirectory.equals(null))
+		if(UserOptions.TestDataDirectory != null)
 		{
 			_mbtaService.getTestBlueLineTrains(successClosure, errorClosure, cancelClosure);
 		} else {
@@ -1267,12 +1267,12 @@ public class MapWindow extends JPanel{
 		GetRedTrainsErrorClosure errorClosure = new GetRedTrainsErrorClosure();
 		GetRedTrainsCancelClosure cancelClosure = new GetRedTrainsCancelClosure();
 
-		if(!UserOptions.TestDataDirectory.equals(null))
+		if(UserOptions.TestDataDirectory != null)
 		{
 			_mbtaService.getTestRedLineTrains(successClosure, errorClosure, cancelClosure);
 		} else {
 			_mbtaService.getRedLineTrains(successClosure, errorClosure, cancelClosure);
-		}	
+		}
 	}
 
 	private class GetRedTrainsCancelClosure implements Closure<Void, AbstractMBTARequest, MBTAResponse>
@@ -1410,6 +1410,12 @@ public class MapWindow extends JPanel{
 		}
 	}
 
+	public List<TripList> getAllTrainsList()
+	{
+		return _allTrainsList;
+	}
+	
+	
 	private class GetOrangeTrainsSuccessClosure implements Closure<Void, AbstractMBTARequest, MBTAResponse>
 	{
 		@Override

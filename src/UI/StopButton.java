@@ -12,9 +12,9 @@ import javax.swing.JButton;
 
 public class StopButton extends JButton{
 	boolean selected; // if the stop has been selected
-	String sName;
-	String stopIDa; //stopID in one direction
-	String stopIDb; //stopID in the other direction
+	public String sName;
+	public String stopIDa; //stopID in one direction
+	public String stopIDb; //stopID in the other direction
 	int x;// xcoordinate on the screen
 	int y;// xcoordinate on the screen
 	private String LITTLEACTIVEICON = "src/UI/LittleActive.png";
@@ -25,8 +25,8 @@ public class StopButton extends JButton{
 	private ImageIcon littleActive;
 	private ImageIcon bigInactive;
 	private ImageIcon littleInactive;
-	Color line;
-	Boolean isEnd;
+	public Color lineColor;
+	public Boolean isEnd;
 	public StopButton(String name, int x, int y, String ida, String idb, Color l, Boolean end){
 		bigActive = new ImageIcon(BIGACTIVEICON);
 		littleActive = new ImageIcon(LITTLEACTIVEICON);
@@ -46,7 +46,7 @@ public class StopButton extends JButton{
 		this.setBounds(x,y, 23, 23);
 		this.stopIDa = ida;
 		this.stopIDb = idb;
-		line = l;
+		lineColor = l;
 		
         setMargin(new Insets(0, 0, 0, 0));
         setContentAreaFilled(false);
