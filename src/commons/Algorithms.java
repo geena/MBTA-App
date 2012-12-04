@@ -18,6 +18,8 @@ public class Algorithms
 	List<IStation> redLine;
 	List<IStation> blueLine;
 	List<IStation> orangeLine;
+	List<IStation> ashmontIStations = new ArrayList<IStation>();
+	List<IStation> braintreeIStations = new ArrayList<IStation>();
 	
 	IntersectionStation stateStreet;
 	IntersectionStation	dxing;
@@ -156,6 +158,18 @@ public class Algorithms
 			{
 				if(braintreeAshmontCondition(previous, current))
 				{
+					StopButton rjfkAshmont = new StopButton("JFK/UMass", 398, 312, "70085", "70086", Color.red, false);
+					StopButton rjfkBraintree = new StopButton("JFK/UMass", 398, 312, "70095", "70096", Color.red, false);
+					Station rjfkAshmontStation = new Station(rjfkAshmont, LineColor.RED);
+					Station rjfkBraintreeStation = new Station(rjfkBraintree, LineColor.RED);
+					if (ashmontIStations.contains(previous))
+					{
+					result.add(new Direction(rjfkAshmontStation, "TRANSFER"));
+					result.add(new Direction(current,"ARRIVE"));
+					} else {
+						result.add(new Direction(rjfkBraintreeStation, "TRANSFER"));
+						result.add(new Direction(current,"ARRIVE"));
+					}
 					
 				}else
 				{
@@ -260,8 +274,6 @@ public class Algorithms
 		braintreeButtonList.add(new StopButton("Quincy Adams", 692, 312, "700103", "700104", Color.red, false));
 		braintreeButtonList.add(new StopButton("Braintree", 730, 311, "700103", "700104", Color.red, true));
 		
-		List<IStation> ashmontIStations = new ArrayList<IStation>();
-		List<IStation> braintreeIStations = new ArrayList<IStation>();
 		for(StopButton button: ashmontButtonList)
 		{
 			ashmontIStations.add(new Station(button, LineColor.RED));
