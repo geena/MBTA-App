@@ -57,7 +57,7 @@ public class Algorithms
 		
 		List<StopButton> stopList = new ArrayList<StopButton>(UserOptions.stopList);
 		
-		stopList.remove(stopList.size()-1);   //TODO: remove this after luis hooks up button
+		//stopList.remove(stopList.size()-1);   //TODO: remove this after luis hooks up button
 		
 		List<IStation> stationList = new ArrayList<IStation>();
 		
