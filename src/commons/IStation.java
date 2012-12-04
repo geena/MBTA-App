@@ -10,12 +10,16 @@ public abstract class IStation
 	private String _stopIDa;
 	private String _stopIDb;
 	private String _stopName;
+	private List<Integer> _secondsLista;
+	private List<Integer> _secondsListb;
 	
 	public IStation(String stopIDa, String stopIDb, String stopName)
 	{
 		_stopIDa = stopIDa;
 		_stopIDb = stopIDb;
 		_stopName = stopName;
+		_secondsLista = null;
+		_secondsListb = null;
 	}
 	
 	public IStation(StopButton button)
@@ -23,6 +27,8 @@ public abstract class IStation
 		_stopIDa = button.stopIDa;
 		_stopIDb = button.stopIDb;
 		_stopName = button.sName;
+		_secondsLista = null;
+		_secondsListb = null;
 	}
 	
 	public abstract boolean isIntersection();
@@ -55,6 +61,26 @@ public abstract class IStation
 	public void setStopName(String stopName)
 	{
 		_stopName = stopName;
+	}
+	
+	public List<Integer> getSecondsLista()
+	{
+		return _secondsLista;
+	}
+	
+	public void setSecondsLista(List<Integer> secondsLista)
+	{
+		_secondsLista = secondsLista;
+	}
+	
+	public List<Integer> getSecondsListb()
+	{
+		return _secondsListb;
+	}
+	
+	public void setSecondsListb(List<Integer> secondsListb)
+	{
+		_secondsListb = secondsListb;
 	}
 	
 	public abstract LineColor getLineColor();

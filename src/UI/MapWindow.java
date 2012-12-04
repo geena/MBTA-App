@@ -1263,6 +1263,7 @@ public class MapWindow extends JPanel{
 
 	private void getRedLineTrains() throws IOException
 	{
+		_allTrainsList = new ArrayList<TripList>();
 		GetRedTrainsSuccessClosure successClosure = new GetRedTrainsSuccessClosure();
 		GetRedTrainsErrorClosure errorClosure = new GetRedTrainsErrorClosure();
 		GetRedTrainsCancelClosure cancelClosure = new GetRedTrainsCancelClosure();
