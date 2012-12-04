@@ -37,9 +37,6 @@ import commons.LineColor;
 import commons.Station;
 import commons.UserOptions;
 
-
-
-
 public class Main extends JFrame implements MouseListener{
 
 	private List<IStation> _redLineStations = new ArrayList<IStation>();
