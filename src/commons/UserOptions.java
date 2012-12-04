@@ -16,6 +16,8 @@ public class UserOptions
 	public static boolean earliestArrival 	= false;
 	public static boolean fewestTransfers 	= false;
 	public static String TestDataDirectory  = null;
+	public static StopButton startPoint		= null;
+	public static StopButton endPoint		= null;
 	
 	public static void reset()
 	{
@@ -28,5 +30,7 @@ public class UserOptions
 		earliestArrival 	= false;
 		fewestTransfers 	= false;
 		TestDataDirectory	= null;
+		startPoint			= null;
+		endPoint			= null;
 	}
 }
