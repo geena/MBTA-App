@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import UI.StopButton;
@@ -60,21 +61,72 @@ public abstract class IStation
 	
 	public abstract List<LineColor> getLineColorList();
 	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((_stopIDa == null) ? 0 : _stopIDa.hashCode());
+		result = prime * result
+				+ ((_stopIDb == null) ? 0 : _stopIDb.hashCode());
+		result = prime * result
+				+ ((_stopName == null) ? 0 : _stopName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		IStation other = (IStation) obj;
+		if (_stopIDa == null) {
+			if (other._stopIDa != null)
+				return false;
+		} else if (!_stopIDa.equals(other._stopIDa))
+			return false;
+		if (_stopIDb == null) {
+			if (other._stopIDb != null)
+				return false;
+		} else if (!_stopIDb.equals(other._stopIDb))
+			return false;
+		if (_stopName == null) {
+			if (other._stopName != null)
+				return false;
+		} else if (!_stopName.equals(other._stopName))
+			return false;
+		return true;
+	}
+	
+
+
+	@Override
+	public String toString() {
+		return _stopName;
+	}
+
+
+
 	public static class Utils
-	{
-		public static IStation findTransferStation(LineColor col1, LineColor col2, List<IStation> redLine, List<IStation> blueLine, List<IStation> orangeLine)
+	{	
+		public static IStation findTransferStation(LineColor prevCol, LineColor curCol, List<IStation> redLine, List<IStation> blueLine, List<IStation> orangeLine)
 		{
-			redLine.addAll(blueLine);
-			redLine.addAll(orangeLine);
+			List<IStation> allStations = new ArrayList<IStation>(redLine);
+			allStations.addAll(blueLine);
+			allStations.addAll(orangeLine);
 			
-			for(IStation station : redLine)
+			for(IStation station : allStations)
 			{
 				if(station.isIntersection())
 				{
 					List<LineColor> colorList = station.getLineColorList();
-					if(!col1.equals(col2) && 
-							(colorList.contains(col1)) &&
-							(colorList.contains(col2)))
+					if(!prevCol.equals(curCol) && 
+							(colorList.contains(prevCol)) &&
+							(colorList.contains(curCol)))
 					{
 						return station;
 					}

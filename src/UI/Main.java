@@ -201,7 +201,7 @@ public class Main extends JFrame implements MouseListener{
 				lineColorList.add(LineColor.RED);
 				lineColorList.add(LineColor.ORANGE);
 				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
-				_redLineStations.add(newStation);
+				_orangeLineStations.add(newStation);
 			}else if(button.sName.equals("State Street"))
 			{
 				List<LineColor> lineColorList = new ArrayList<LineColor>();
@@ -441,8 +441,12 @@ public class Main extends JFrame implements MouseListener{
 				redSplit.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 				redSplit.setModal(true);
 			}
-			Algorithms.executeTask(window.getAllTrainsList());
 			
+			
+			Algorithms algo = new Algorithms(window.getAllTrainsList(), 
+					getRedLineStations(), getBlueLineStations(), getOrangeLineStations());
+			
+			algo.executeTask();
 			
 		}else if(e.getSource() instanceof StopButton){
 			current = (StopButton)e.getSource();

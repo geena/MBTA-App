@@ -6,68 +6,239 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import models.TripList;
 
 public class Algorithms
 {
-	public static ArrayList<StopButton> executeTask(List<TripList> allTrainsList){
-		System.out.println("EXECUTE" + UserOptions.stopList.size());
-		ArrayList<StopButton> stopList = new ArrayList<StopButton>(UserOptions.stopList);
-		stopList.remove(stopList.size()-1);
-		
-		ArrayList<StopButton> result = null;
-        
-		for ( StopButton but : stopList)
-		{
-			String stopName = but.stopIDa;
-			System.out.println(stopName);
-		}
-		
-		if(UserOptions.ordered)
-			result = getOrdered(stopList);
-		
-		
-		
+	
+	List<TripList> allTrainsList; 
+	List<IStation> redLine;
+	List<IStation> blueLine;
+	List<IStation> orangeLine;
+	
+	IntersectionStation stateStreet;
+	IntersectionStation	dxing;
+	
+	public Algorithms(List<TripList> allTrainsList, 
+			List<IStation> redLine, List<IStation> blueLine, List<IStation> orangeLine)
+	{
+		this.allTrainsList = allTrainsList;
+		this.redLine = redLine;
+		this.blueLine = blueLine;
+		this.orangeLine = orangeLine;
 		
 		
 		
-		return null;
+		List<LineColor> stateColList = new ArrayList<LineColor>();
+		stateColList.add(LineColor.BLUE);
+		stateColList.add(LineColor.ORANGE);
+		
+		stateStreet = new IntersectionStation("7042", "7043" , "State Street", stateColList);
+		
+		List<LineColor> dxingColList = new ArrayList<LineColor>();
+		dxingColList.add(LineColor.RED);
+		dxingColList.add(LineColor.ORANGE);
+		
+		dxing = new IntersectionStation("7077", "7078" , "Downtown Crossing", dxingColList);
 	}
 	
-	public static ArrayList<StopButton> getOrdered(ArrayList<StopButton> list)
-	{
-		if(allSameColor(list))
+	public List<Direction> executeTask(){
+		
+		List<StopButton> stopList = new ArrayList<StopButton>(UserOptions.stopList);
+		
+		stopList.remove(stopList.size()-1);   //TODO: remove this after luis hooks up button
+		
+		List<IStation> stationList = new ArrayList<IStation>();
+		
+		for(StopButton button : stopList)
 		{
-			ArrayList<StopButton> result = new ArrayList<StopButton>();
-			result.add(list.get(0));
-			result.add(list.get(list.size()-1));
-			return result;
+			if(button.sName.equals("Downtown Crossing"))
+			{
+				List<LineColor> lineColorList = new ArrayList<LineColor>();
+				lineColorList.add(LineColor.RED);
+				lineColorList.add(LineColor.ORANGE);
+				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+				stationList.add(newStation);
+			}
+			else if(button.sName.equals("State Street"))
+			{
+				List<LineColor> lineColorList = new ArrayList<LineColor>();
+				lineColorList.add(LineColor.BLUE);
+				lineColorList.add(LineColor.ORANGE);
+				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+				stationList.add(newStation);
+			}else
+			{
+				LineColor col = null;
+				if(button.lineColor.equals(Color.red))
+					col = LineColor.RED;
+				else if(button.lineColor.equals(Color.orange))
+					col = LineColor.ORANGE;
+				else
+					col = LineColor.BLUE;
+				
+				Station newStation = new Station(button, col);
+				stationList.add(newStation);
+			}
 		}
 		
 		
-		return null;
-	}
-	
-	public static ArrayList<Integer> findDirectionChanges(ArrayList<StopButton> list)
-	{
-		int id = Math.abs(Integer.parseInt(list.get(0).stopIDa));
 		
-		for(StopButton but : list)
+		List<Direction> result = null;
+		
+		//TODO: uncomment once useroptions func
+		//if(UserOptions.ordered)
+			result = getOrdered(stationList);
+		
+		for(Direction stat : result)
 		{
-			
+			System.out.println(stat.instruction + "\t" + stat.station.getStopName());
 		}
 		
-		return null;
+		
+		return result;
 	}
 	
-	public static boolean allSameColor(ArrayList<StopButton> list)
+	
+	public class Direction{
+		public String instruction;
+		public IStation station;
+		public Direction(IStation station, String instruction)
+		{
+			this.instruction = instruction;
+			this.station = station;
+		}
+		
+		public IStation getStation(){return station;}
+		public String getInstruction(){return instruction;}
+		
+		
+	}
+	
+	
+	public List<Direction> getOrdered(List<IStation> list)
 	{
-		Color firstColor = list.get(0).lineColor;
+		ArrayList<Direction> result = new ArrayList<Direction>();
+		result.add(new Direction(list.get(0),"START"));
+		
+		IStation previous = list.get(0);
+		
+		
 		for(int i = 1; i < list.size();i++)
 		{
-			if(!(list.get(i).lineColor.equals(firstColor)))
-				return false;
+			IStation current = list.get(i);
+			
+			if(onSameLine(previous, current))
+			{
+				result.add(new Direction(list.get(i),"ARRIVE"));
+			}
+			else
+			{
+				LineColor curColor = null;
+				LineColor prevColor = null;
+				List<LineColor> colList = null;
+				
+				
+				if(previous.isIntersection())
+				{
+					curColor = current.getLineColor();
+					colList = previous.getLineColorList();
+					for(LineColor col : colList)
+					{
+						if(!col.equals(prevColor))
+							curColor = col;
+					}
+					
+					result.add(new Direction(IStation.Utils.findTransferStation(curColor,prevColor,
+							redLine,blueLine,orangeLine), "TRANSFER"));
+					
+				}
+				else if(current.isIntersection())
+				{
+					prevColor = previous.getLineColor();
+					colList = current.getLineColorList();
+					for(LineColor col : colList)
+					{
+						if(!col.equals(prevColor))
+							curColor = col;
+					}
+					
+					result.add(new Direction(IStation.Utils.findTransferStation(curColor,prevColor,
+							redLine,blueLine,orangeLine), "TRANSFER"));
+				}
+				else
+				{
+					prevColor = previous.getLineColor();
+					curColor = current.getLineColor();
+					
+					IStation transferStation = IStation.Utils.findTransferStation(curColor,prevColor,
+							redLine,blueLine,orangeLine);
+					
+					
+					if(transferStation == null)  //going from blue->red or red->blue
+					{
+						if(prevColor.equals(LineColor.BLUE))
+						{
+							
+							result.add(new Direction(stateStreet , "TRANSFER"));
+							result.add(new Direction(dxing , "TRANSFER"));
+						}
+						else
+						{
+							result.add(new Direction(dxing , "TRANSFER"));
+							result.add(new Direction(stateStreet , "TRANSFER"));
+						}
+					}
+					else{
+						result.add(new Direction(transferStation, "TRANSFER"));
+						result.add(new Direction(current, "ARRIVE"));
+					}
+					
+					
+				}
+				
+			}
+			
+			
+			previous = current;
 		}
-		return true;
+
+		result.add(new Direction(list.get(list.size()-1), "END TRIP"));
+		
+		return result;
+	}
+	
+	
+	public ArrayList<Integer> findDirectionChanges(ArrayList<Station> list)
+	{
+		int first = Math.abs(Integer.parseInt(list.get(0).getStopIDa()));
+		int second = Math.abs(Integer.parseInt(list.get(1).getStopIDa()));
+		
+		boolean incrementing = true;
+		
+		if(first < second)
+			incrementing = false;
+			
+		ArrayList<Integer> dirChanges = new ArrayList<Integer>();
+		
+		for(int i = 2; i < list.size();i++)
+		{
+			if(incrementing)
+				if(Math.abs(Integer.parseInt(list.get(i).getStopIDa())) < second)
+					dirChanges.add(i * -1);
+			if(!incrementing)
+				if(Math.abs(Integer.parseInt(list.get(i).getStopIDa())) > second)
+					dirChanges.add(i);
+		}
+		
+		return null;
+	}
+	
+	public boolean onSameLine(IStation stat1, IStation stat2)
+	{
+		 return (redLine.contains(stat1) && redLine.contains(stat2)) ||
+				 (blueLine.contains(stat1) && blueLine.contains(stat2)) ||
+				 (orangeLine.contains(stat1) && orangeLine.contains(stat2));
 	}
 }
