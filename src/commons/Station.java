@@ -2,33 +2,46 @@ package commons;
 
 import java.util.List;
 
-public class Station
+import UI.StopButton;
+
+
+public class Station implements IStation
 {
-	private String _stopID;
+	private String _stopIDa;
+	private String _stopIDb;
 	private String _stopName;
-	private boolean _isIntersection;
-	private List<LineColor> _lineColorList;
+	private LineColor _lineColor;
 	
-	public Station(String stopID, String stopName, List<LineColor> lineColorList)
+	public Station(String stopIDa, String stopIDb, String stopName, LineColor lineColor)
 	{
-		_stopID = stopID;
+		_stopIDa = stopIDa;
+		_stopIDb = stopIDb;
 		_stopName = stopName;
-		_lineColorList = lineColorList;
-		if(lineColorList.size() > 1)
-		{
-			_isIntersection = true;
-		}else
-		{
-			_isIntersection = false;
-		}
+		_lineColor = lineColor;
+	}
+	
+	public Station(StopButton button, LineColor lineColor)
+	{
+		_stopIDa = button.stopIDa;
+		_stopIDb = button.stopIDb;
+		_stopName = button.sName;
+		_lineColor = lineColor;
 	}
 
-	public String getStopID() {
-		return _stopID;
+	public String getStopIDa() {
+		return _stopIDa;
 	}
 
-	public void setStopID(String stopID) {
-		stopID = _stopID;
+	public void setStopIDa(String stopIDa) {
+		stopIDa = _stopIDa;
+	}
+	
+	public String getStopIDb() {
+		return _stopIDb;
+	}
+
+	public void setStopIDb(String stopIDb) {
+		stopIDb = _stopIDb;
 	}
 
 	public String getStopName() {
@@ -39,16 +52,21 @@ public class Station
 		stopName = _stopName;
 	}
 
-	public List<LineColor> getLineColorList() {
-		return _lineColorList;
+	public LineColor getLineColor() {
+		return _lineColor;
 	}
 
-	public void setLineColor(List<LineColor> lineColorList) {
-		_lineColorList = lineColorList;
+	public void setLineColor(LineColor lineColor) {
+		_lineColor = lineColor;
 	}
-	
-	public boolean isIntersection()
-	{
-		return _isIntersection;
+
+	@Override
+	public boolean isIntersection() {
+		return false;
+	}
+
+	@Override
+	public List<LineColor> getLineColorList() {
+		return null;
 	}
 }
