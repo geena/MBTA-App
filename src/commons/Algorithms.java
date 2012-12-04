@@ -4,6 +4,8 @@ import UI.StopButton;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -34,16 +36,24 @@ public class Algorithms
 		stateColList.add(LineColor.BLUE);
 		stateColList.add(LineColor.ORANGE);
 		
-		stateStreet = new IntersectionStation("7042", "7043" , "State Street", stateColList);
+		stateStreet = new IntersectionStation("70042", "70043" , "State Street", stateColList);
 		
 		List<LineColor> dxingColList = new ArrayList<LineColor>();
 		dxingColList.add(LineColor.RED);
 		dxingColList.add(LineColor.ORANGE);
 		
-		dxing = new IntersectionStation("7077", "7078" , "Downtown Crossing", dxingColList);
+		dxing = new IntersectionStation("70077", "70078" , "Downtown Crossing", dxingColList);
 	}
 	
-	public List<Direction> executeTask(){
+	
+	
+	/**
+	 * 
+	 * returns a list of a list of directions
+	 * if the user wants only one ordered list of directions it will only contain one list of directions
+	 * if the user wants unordered stops the result will be a list of size n! chosen routes using all permutations of traversal
+	 */
+	public List<List<Direction>> executeTask(){
 		
 		List<StopButton> stopList = new ArrayList<StopButton>(UserOptions.stopList);
 		
@@ -85,15 +95,28 @@ public class Algorithms
 		
 		
 		
-		List<Direction> result = null;
+		List<List<Direction>> result = new ArrayList<List<Direction>>();
 		
-		//TODO: uncomment once useroptions func
-		//if(UserOptions.ordered)
-			result = getOrdered(stationList);
-		
-		for(Direction stat : result)
+		if(UserOptions.ordered)
+			result.add(getOrdered(stationList));
+		else //else we get unordered
 		{
-			System.out.println(stat.instruction + "\t" + stat.station.getStopName());
+			List<List<IStation>> permutations = findAllPermutations(stationList);
+			for(List<IStation> statList : permutations)
+			{
+				result.add(getOrdered(statList));
+			}
+		}
+		
+		
+		
+		for(List<Direction> res : result)
+		{
+			for(Direction stat : res)
+			{
+				System.out.println(stat.instruction + "\t" + stat.station.getStopName());
+			}
+			System.out.println("----------------------------------------------------");
 		}
 		
 		
@@ -189,6 +212,8 @@ public class Algorithms
 							result.add(new Direction(dxing , "TRANSFER"));
 							result.add(new Direction(stateStreet , "TRANSFER"));
 						}
+						result.add(new Direction(current, "ARRIVE"));
+						
 					}
 					else{
 						result.add(new Direction(transferStation, "TRANSFER"));
@@ -208,32 +233,22 @@ public class Algorithms
 		
 		return result;
 	}
+
 	
-	
-	public ArrayList<Integer> findDirectionChanges(ArrayList<Station> list)
+	public static List<List<IStation>> findAllPermutations(List<IStation> list)
 	{
-		int first = Math.abs(Integer.parseInt(list.get(0).getStopIDa()));
-		int second = Math.abs(Integer.parseInt(list.get(1).getStopIDa()));
-		
-		boolean incrementing = true;
-		
-		if(first < second)
-			incrementing = false;
-			
-		ArrayList<Integer> dirChanges = new ArrayList<Integer>();
-		
-		for(int i = 2; i < list.size();i++)
+		if(list.size() < 3) return null;
+		int j = list.size() * 5;
+		HashSet<List<IStation>> hashed = new HashSet<List<IStation>>();
+		hashed.add(new ArrayList<IStation>(list));
+		for(int i = 0; i < j; i++)
 		{
-			if(incrementing)
-				if(Math.abs(Integer.parseInt(list.get(i).getStopIDa())) < second)
-					dirChanges.add(i * -1);
-			if(!incrementing)
-				if(Math.abs(Integer.parseInt(list.get(i).getStopIDa())) > second)
-					dirChanges.add(i);
+			Collections.shuffle(list);
+			hashed.add(new ArrayList<IStation>(list));	
 		}
-		
-		return null;
+		return new ArrayList<List<IStation>>(hashed);
 	}
+	
 	
 	public boolean onSameLine(IStation stat1, IStation stat2)
 	{
