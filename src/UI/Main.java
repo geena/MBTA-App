@@ -4,12 +4,16 @@ package UI;
 
 import java.awt.Color;
 import java.awt.Dimension;
-
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,6 +25,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+
+import models.Predictions;
+import models.TripList;
+import models.Trips;
 
 import commons.Algorithms;
 import commons.IStation;
@@ -434,7 +442,81 @@ public class Main extends JFrame implements MouseListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
            
-            
+        HashMap<String, List<Integer>> predictionsMap = new HashMap<String, List<Integer>>();
+
+		List<TripList> tripLists = window.getAllTrainsList();
+		for(TripList tripList : tripLists)
+		{
+			List<Trips> trips = tripList.getTrips();
+			for(Trips trip : trips)
+			{
+				List<Predictions> predictions = trip.getPredictions();
+				for(Predictions prediction : predictions)
+				{
+					List<Integer> secondsList = predictionsMap.get(prediction.getStopID());
+					if(secondsList == null)
+					{
+						secondsList = new ArrayList<Integer>();
+						secondsList.add(prediction.getSeconds());
+					}else
+					{
+						secondsList.add(prediction.getSeconds());
+					}
+					predictionsMap.put(prediction.getStopID(), secondsList);
+				}
+			}
+		}
+
+		for(IStation station : _redLineStations)
+		{
+			Set<Entry<String, List<Integer>>> entrySet = predictionsMap.entrySet();
+			Iterator<Map.Entry<String, List<Integer>>> setIt = entrySet.iterator();
+			while(setIt.hasNext())
+			{
+				Map.Entry<String, List<Integer>> entry = setIt.next();
+				if(station.getStopIDa().equals(entry.getKey()))
+				{
+					station.setSecondsLista(entry.getValue());
+				}else if(station.getStopIDb().equals(entry.getKey()))
+				{
+					station.setSecondsListb(entry.getValue());
+				}
+			}
+		}
+
+		for(IStation station : _blueLineStations)
+		{
+			Set<Entry<String, List<Integer>>> entrySet = predictionsMap.entrySet();
+			Iterator<Map.Entry<String, List<Integer>>> setIt = entrySet.iterator();
+			while(setIt.hasNext())
+			{
+				Map.Entry<String, List<Integer>> entry = setIt.next();
+				if(station.getStopIDa().equals(entry.getKey()))
+				{
+					station.setSecondsLista(entry.getValue());
+				}else if(station.getStopIDb().equals(entry.getKey()))
+				{
+					station.setSecondsListb(entry.getValue());
+				}
+			}
+		}
+
+		for(IStation station : _orangeLineStations)
+		{
+			Set<Entry<String, List<Integer>>> entrySet = predictionsMap.entrySet();
+			Iterator<Map.Entry<String, List<Integer>>> setIt = entrySet.iterator();
+			while(setIt.hasNext())
+			{
+				Map.Entry<String, List<Integer>> entry = setIt.next();
+				if(station.getStopIDa().equals(entry.getKey()))
+				{
+					station.setSecondsLista(entry.getValue());
+				}else if(station.getStopIDb().equals(entry.getKey()))
+				{
+					station.setSecondsListb(entry.getValue());
+				}
+			}
+		}
 	}
 	
 	private void updateOptions(){
