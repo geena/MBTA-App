@@ -13,10 +13,6 @@ import models.TripList;
 
 public class Algorithms
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> 63660a2c04ff3f2da46a04649d8d6a9930581943
 	List<TripList> allTrainsList; 
 	List<IStation> redLine;
 	List<IStation> blueLine;
@@ -313,13 +309,6 @@ public class Algorithms
 		}
 
 		result.add(new Direction(list.get(list.size()-1), "END TRIP"));
-<<<<<<< HEAD
-		
-		
-		
-=======
-
->>>>>>> 63660a2c04ff3f2da46a04649d8d6a9930581943
 		return result;
 	}
 
@@ -344,12 +333,7 @@ public class Algorithms
 		}
 		return new ArrayList<List<IStation>>(hashed);
 	}
-<<<<<<< HEAD
-	
-=======
 
-
->>>>>>> 63660a2c04ff3f2da46a04649d8d6a9930581943
 	public boolean onSameLine(IStation stat1, IStation stat2)
 	{
 		return (redLine.contains(stat1) && redLine.contains(stat2)) ||
