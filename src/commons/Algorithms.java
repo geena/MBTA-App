@@ -13,7 +13,6 @@ import models.TripList;
 
 public class Algorithms
 {
-	
 	List<TripList> allTrainsList; 
 	List<IStation> redLine;
 	List<IStation> blueLine;
@@ -114,9 +113,18 @@ public class Algorithms
 		{
 			for(Direction stat : res)
 			{
-				System.out.println(stat.instruction + "\t" + stat.station.getStopName());
+				IStation station = stat.station;
+				int seconds = 0;
+				
+				if(Integer.parseInt(station.getStopIDa())%2 != 0)
+					seconds = station.getSecondsLista().get(0);
+				else
+					seconds = station.getSecondsListb().get(0); 
+				
+				System.out.println(stat.instruction + "\t" + stat.station.getStopName() + "\t" + seconds);
 			}
 			System.out.println("----------------------------------------------------");
+			
 		}
 		
 		
@@ -231,6 +239,8 @@ public class Algorithms
 
 		result.add(new Direction(list.get(list.size()-1), "END TRIP"));
 		
+		
+		
 		return result;
 	}
 
@@ -248,7 +258,6 @@ public class Algorithms
 		}
 		return new ArrayList<List<IStation>>(hashed);
 	}
-	
 	
 	public boolean onSameLine(IStation stat1, IStation stat2)
 	{
