@@ -54,4 +54,4 @@ For any trip on the T, the user wants to know the fastest route, the earliest de
 Select some stops, at the bottom of the page there is an option Priority, select one.  Click Plan Trip, the information will pop up.
 
 The client wants to test the system with old data. (Essential)
-???
+Go into root dir and use './runMBTAPlanner debug.json' 
