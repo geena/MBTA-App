@@ -700,8 +700,6 @@ public class Main extends JFrame implements MouseListener{
 			}
 
 		}
-
-
 	}
 
 	private void subMenuActivation(){
@@ -739,7 +737,4 @@ public class Main extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 
 	}
-
-
-
 }
