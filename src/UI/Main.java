@@ -34,6 +34,7 @@ import models.TripList;
 import models.Trips;
 
 import commons.Algorithms;
+import commons.Algorithms.Direction;
 import commons.IStation;
 import commons.IntersectionStation;
 import commons.LineColor;
@@ -640,11 +641,18 @@ public class Main extends JFrame implements MouseListener{
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			Algorithms algo = new Algorithms(window.getAllTrainsList(), getRedLineStations(), 
 					getBlueLineStations(), getOrangeLineStations());
+			List<List<Direction>> executeTask = algo.executeTask();
 			if(UserOptions.ordered){
-				frame.add(new InstructionsWindow(algo.executeTask().get(0)));
+				frame.add(new InstructionsWindow(executeTask.get(0)));
 			}else{
+				if(executeTask.size() > 4)
+				{
+					executeTask = executeTask.subList(0, 4);
+				}
 				System.out.println("un");
-				frame.add(new InstructionsWindow(algo.executeTask().get(1)));
+				InstructionsWindow iWindow = new InstructionsWindow();
+				iWindow.init(executeTask);
+				frame.add(iWindow);
 			}
 			frame.setSize(300, 400);
 			frame.setVisible(true);
