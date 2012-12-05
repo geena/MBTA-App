@@ -687,8 +687,6 @@ public class Main extends JFrame implements MouseListener{
 				redSplit.setModal(true);
 			}
 
-
-
 		}else if(e.getSource() instanceof StopButton && SwingUtilities.isRightMouseButton(e)!= true){
 			current = (StopButton)e.getSource();
 			current.singleClicked();
@@ -698,7 +696,6 @@ public class Main extends JFrame implements MouseListener{
 			}else{
 				subMenuDeactivation();
 			}
-
 		}
 	}
 

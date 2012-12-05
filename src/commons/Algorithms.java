@@ -97,8 +97,10 @@ public class Algorithms
 	 * if the user wants only one ordered list of directions it will only contain one list of directions
 	 * if the user wants unordered stops the result will be a list of size n! chosen routes using all permutations of traversal
 	 */
-	public List<List<Direction>> executeTask(){
-
+	public List<List<Direction>> executeTask()
+	{
+		StopButton start = UserOptions.startPoint;
+		StopButton end = UserOptions.endPoint;
 		List<StopButton> stopList = new ArrayList<StopButton>(UserOptions.stopList);
 
 		List<IStation> stationList = new ArrayList<IStation>();
@@ -111,6 +113,25 @@ public class Algorithms
 				lineColorList.add(LineColor.RED);
 				lineColorList.add(LineColor.ORANGE);
 				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+
+				for(IStation station : redLine)
+				{
+					if(station.equals(newStation))
+					{
+						newStation.setSecondsLista(station.getSecondsLista());
+						newStation.setSecondsListb(station.getSecondsListb());
+					}
+				}
+
+				for(IStation station : orangeLine)
+				{
+					if(station.equals(newStation))
+					{
+						newStation.setSecondsLista(station.getSecondsLista());
+						newStation.setSecondsListb(station.getSecondsListb());
+					}
+				}
+
 				stationList.add(newStation);
 			}
 			else if(button.sName.equals("State Street"))
@@ -119,6 +140,25 @@ public class Algorithms
 				lineColorList.add(LineColor.BLUE);
 				lineColorList.add(LineColor.ORANGE);
 				IntersectionStation newStation = new IntersectionStation(button, lineColorList);
+
+				for(IStation station : orangeLine)
+				{
+					if(station.equals(newStation))
+					{
+						newStation.setSecondsLista(station.getSecondsLista());
+						newStation.setSecondsListb(station.getSecondsListb());
+					}
+				}
+
+				for(IStation station : blueLine)
+				{
+					if(station.equals(newStation))
+					{
+						newStation.setSecondsLista(station.getSecondsLista());
+						newStation.setSecondsListb(station.getSecondsListb());
+					}
+				}
+
 				stationList.add(newStation);
 			}else
 			{
@@ -131,11 +171,42 @@ public class Algorithms
 					col = LineColor.BLUE;
 
 				Station newStation = new Station(button, col);
+
+				if(col.equals(LineColor.RED))
+				{
+					for(IStation station : redLine)
+					{
+						if(station.equals(newStation))
+						{
+							newStation.setSecondsLista(station.getSecondsLista());
+							newStation.setSecondsListb(station.getSecondsListb());
+						}
+					}
+				}else if(col.equals(LineColor.ORANGE))
+				{
+					for(IStation station : orangeLine)
+					{
+						if(station.equals(newStation))
+						{
+							newStation.setSecondsLista(station.getSecondsLista());
+							newStation.setSecondsListb(station.getSecondsListb());
+						}
+					}
+				}else if(col.equals(LineColor.BLUE))
+				{
+					for(IStation station : blueLine)
+					{
+						if(station.equals(newStation))
+						{
+							newStation.setSecondsLista(station.getSecondsLista());
+							newStation.setSecondsListb(station.getSecondsListb());
+						}
+					}
+				}
+
 				stationList.add(newStation);
 			}
 		}
-
-
 
 		List<List<Direction>> result = new ArrayList<List<Direction>>();
 
