@@ -22,9 +22,12 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 
 import models.Predictions;
 import models.TripList;
@@ -45,6 +48,10 @@ public class Main extends JFrame implements MouseListener{
 	JDialog redSplit;
 	final JButton ashmont = new JButton("Ashmont");
 	final JButton braintree = new JButton("Braintree");
+	
+	JPopupMenu points = new JPopupMenu();
+	JMenuItem startPoint = new JMenuItem("make start point");
+	JMenuItem endPoint = new JMenuItem("make end point");
 
 	//orange line button placement
 	StopButton oforesthills = new StopButton("Forest Hills", 53, 119, "70001", "70001", Color.orange, true);
@@ -144,7 +151,9 @@ public class Main extends JFrame implements MouseListener{
 		braintree.setSize(100, 50);
 		ashmont.addMouseListener(this);
 		braintree.addMouseListener(this);
-
+		
+		points.add(startPoint);
+		points.add(endPoint);
 
 		subMenu.add(orderedLabel);
 		subMenu.add(trip);
@@ -467,12 +476,31 @@ public class Main extends JFrame implements MouseListener{
 			UserOptions.earliestArrival = false;
 			UserOptions.fewestTransfers = true;
 		}
+		
+		setTime();
 
 	}
 
 	private void setTime(){
 		if(departureArrivalBox.getSelectedIndex() != 0){
-			Long time = new Long(0);
+			long time = 0;
+			if(ampmMenu.getSelectedIndex() == 1){
+				time = 43200000;
+				time = time + (60000 * minutes.getNumber().intValue());
+				time = time + (3600000 * hour.getNumber().intValue());
+			}else{
+				if(ampmMenu.getSelectedIndex() == 1){
+					time = 0;
+					time = time + (60000 * minutes.getNumber().intValue());
+					time = time + (3600000 * hour.getNumber().intValue());
+				}
+			}
+			if(departureArrivalBox.getSelectedIndex() == 1){
+				UserOptions.departureTime = new Long(time);
+			}
+			if(departureArrivalBox.getSelectedIndex() == 2){
+				UserOptions.arrivalTime = new Long(time);
+			}
 
 		}
 
@@ -583,6 +611,23 @@ public class Main extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 
 		StopWindow stop;
+		JButton button = new JButton();
+		if(e.getSource() == startPoint){
+			if(button instanceof StopButton){
+				UserOptions.startPoint = (StopButton) button;
+				UserOptions.ordered = false;
+			}
+		}
+		if(e.getSource() == endPoint){
+			if(button instanceof StopButton){
+				UserOptions.endPoint = (StopButton) button;
+				UserOptions.ordered = false;
+			}
+		}
+		if(SwingUtilities.isRightMouseButton(e)){
+			button = (StopButton) e.getSource();
+			points.show(this, e.getX(), e.getY());
+		}
 		if(e.getSource() instanceof JComboBox){
 			updateOptions();
 		}
@@ -593,7 +638,12 @@ public class Main extends JFrame implements MouseListener{
 			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			Algorithms algo = new Algorithms(window.getAllTrainsList(), getRedLineStations(), 
 					getBlueLineStations(), getOrangeLineStations());
-			frame.add(new InstructionsWindow(algo.executeTask().get(0)));
+			if(UserOptions.ordered){
+				frame.add(new InstructionsWindow(algo.executeTask().get(0)));
+			}else{
+				System.out.println("un");
+				frame.add(new InstructionsWindow(algo.executeTask().get(1)));
+			}
 			frame.setSize(300, 400);
 			frame.setVisible(true);
 		}
@@ -639,7 +689,7 @@ public class Main extends JFrame implements MouseListener{
 
 
 
-		}else if(e.getSource() instanceof StopButton){
+		}else if(e.getSource() instanceof StopButton && SwingUtilities.isRightMouseButton(e)!= true){
 			current = (StopButton)e.getSource();
 			current.singleClicked();
 			window.processClick(current);
