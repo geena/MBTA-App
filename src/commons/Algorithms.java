@@ -224,39 +224,100 @@ public class Algorithms
 
 		for(List<Direction> res : result)
 		{
-			for(Direction stat : res)
+			for(int i = 0; i < res.size(); i++)
 			{
-				IStation station = stat.station;
-				int seconds = 0;
+				Direction dir = res.get(i);
+				IStation station = res.get(i).station;
+
+
+				if(Integer.parseInt(station.getStopIDa())%2 != 0){
+					if(station.getSecondsLista() == null)
+						dir.seconds = -1;
+					else if(i == 0)
+						dir.seconds = station.getSecondsLista().get(0);
+					else
+					{
+						List<Integer> secondsList = station.getSecondsLista();
+						int previousSeconds = res.get(i-1).seconds;
+
+						for(Integer j : secondsList)
+						{
+							if(j.intValue() > previousSeconds)
+								dir.seconds = j.intValue();
+						}
+					}
+				}
+				else{
+					if(station.getSecondsListb() == null)
+						dir.seconds = -1;
+					else if(i == 0)
+						dir.seconds = station.getSecondsListb().get(0);
+					else
+					{
+						List<Integer> secondsList = station.getSecondsListb();
+						int previousSeconds = res.get(i-1).seconds;
+
+						for(Integer j : secondsList)
+						{
+							if(j.intValue() > previousSeconds)
+								dir.seconds = j.intValue();
+						}
+					}
+
+				}
+
+				String eta = "NA!";
+				if(dir.seconds >= 0)
+					eta = Integer.toString(dir.getMinutes())+"mins";
+					
+				dir.instruction = dir.instruction + "  Next Train: " + eta;  
 				
-				if(Integer.parseInt(station.getStopIDa())%2 != 0)
-					seconds = station.getSecondsLista().get(0);
-				else
-					seconds = station.getSecondsListb().get(0); 
-				
-				System.out.println(stat.instruction + "\t" + stat.station.getStopName() + "\t" + seconds);
+				System.out.println(dir.instruction + "\t" + station.getStopName());
 			}
 			System.out.println("----------------------------------------------------");
-			
+
 		}
-
-
+		addTotalMinutes(result);
+		
 		return result;
 	}
 
+	public void addTotalMinutes(List<List<Direction>> resultSet)
+	{
+		for(List<Direction> dlist : resultSet)
+		{
+			int minutes = 0;
+			
+			if(dlist.get(1).getMinutes() > 0 && dlist.get(0).getMinutes() > 0 )
+				minutes = dlist.get(1).getMinutes() - dlist.get(0).getMinutes();
+			
+			for(int i = 1; i < dlist.size()-1; i++)
+			{
+				if(dlist.get(i).getMinutes() > 0 && dlist.get(i-1).getMinutes() > 0 )
+					minutes += dlist.get(i).getMinutes() - dlist.get(i-1).getMinutes();
+			}
+			
+			dlist.add(new Direction(new Station(null,null,"",null), "TOTAL TRIP TIME: "+minutes+ "mins"));
+			
+		}
+	}
 
 	public class Direction{
 		public String instruction;
 		public IStation station;
+		public int seconds;
+
 		public Direction(IStation station, String instruction)
 		{
 			this.instruction = instruction;
 			this.station = station;
+			this.seconds = -1;
 		}
 
 		public IStation getStation(){return station;}
 		public String getInstruction(){return instruction;}
-
+		public int getSeconds(){return seconds;}
+		public int getMinutes(){return (seconds/60);}
 
 	}
 
@@ -304,7 +365,22 @@ public class Algorithms
 
 				}else
 				{
-					result.add(new Direction(list.get(i),"ARRIVE"));
+					boolean changedDir = false;
+					if(i > 1)
+					{
+						int twoBeforeDir = Integer.parseInt(list.get(i-2).getStopIDa());
+						int oneBeforeDir = Integer.parseInt(previous.getStopIDa());
+						int currentDir = Integer.parseInt(current.getStopIDa());
+						if((oneBeforeDir > twoBeforeDir) && currentDir < oneBeforeDir)
+							changedDir = true;
+						else if((oneBeforeDir < twoBeforeDir) && currentDir > oneBeforeDir)
+							changedDir = true;
+						
+					}
+					if(changedDir)
+						result.add(new Direction(list.get(i),"CHANGE DIR"));
+					else
+						result.add(new Direction(list.get(i),"ARRIVE"));
 				}
 			}
 			else
@@ -354,7 +430,6 @@ public class Algorithms
 					{
 						if(prevColor.equals(LineColor.BLUE))
 						{
-
 							result.add(new Direction(stateStreet , "TRANSFER"));
 							result.add(new Direction(dxing , "TRANSFER"));
 						}
@@ -376,7 +451,8 @@ public class Algorithms
 			previous = current;
 		}
 
-		result.add(new Direction(list.get(list.size()-1), "END TRIP"));
+		//result.add(new Direction(list.get(list.size()-1), "END TRIP"));
+		
 		return result;
 	}
 
