@@ -10,7 +10,20 @@ Luis Llanes
 
 Team Email: tmeng999@gmail.com
 
-How to compile/run:
+How to compile/run on CCIS Linux Machine:
+To Compile (Not Necessary Since Jar is included):
+Go into root directory and use 'ant' command.
+
+To Run:
+Go into root directory and use './runMBTAPlanner' command.
+
+To Run with debug json:
+Go into root dir and use './runMBTAPlanner debug.json' 
+
+To see all current location of trains:
+Once the application loads, all current location of trains will be shown on start up page.
+
+
 
 How to:
 The user wants to know where she can go using the T. (Essential)

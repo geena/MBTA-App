@@ -509,6 +509,8 @@ public class Main extends JFrame implements MouseListener{
 	}
 
 	public static void main(String[] args){
+		if(args.length > 0)
+			UserOptions.TestDataDirectory = args[0];
 		new Main();
 	}
 
