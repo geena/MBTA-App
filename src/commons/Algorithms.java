@@ -101,8 +101,6 @@ public class Algorithms
 
 		List<StopButton> stopList = new ArrayList<StopButton>(UserOptions.stopList);
 
-		//stopList.remove(stopList.size()-1);   //TODO: remove this after luis hooks up button
-
 		List<IStation> stationList = new ArrayList<IStation>();
 
 		for(StopButton button : stopList)
@@ -151,7 +149,6 @@ public class Algorithms
 				result.add(getOrdered(statList));
 			}
 		}
-
 
 
 		for(List<Direction> res : result)
